@@ -1,1 +1,16 @@
 node_modules/
+.next/
+out/
+build/
+dist/
+.env
+.env*.local
+*.tsbuildinfo
+next-env.d.ts
+.DS_Store
+npm-debug.log*
+server.out.log
+server.err.log
+test-*.png
+
+.playwright-mcp/

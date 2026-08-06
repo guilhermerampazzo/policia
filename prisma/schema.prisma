@@ -1,0 +1,251 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  STUDENT
+}
+
+enum TipoConteudo {
+  VIDEO
+  PDF
+  VIDEO_PDF
+  QUESTOES
+}
+
+enum StatusMeta {
+  PENDENTE
+  EM_CURSO
+  CONCLUIDA
+  ATRASADA
+}
+
+enum OrigemMeta {
+  PLANEJADA
+  MANUAL
+  REVISAO
+}
+
+enum StatusRevisao {
+  PENDENTE
+  REVISTO
+}
+
+enum TipoPomodoro {
+  FOCO
+  PAUSA
+}
+
+enum Dificuldade {
+  FACIL
+  MEDIA
+  DIFICIL
+}
+
+enum StatusRedacao {
+  PENDENTE
+  CORRIGIDA
+}
+
+model User {
+  id            String          @id @default(cuid())
+  email         String          @unique
+  name          String
+  passwordHash  String
+  role          Role            @default(STUDENT)
+  concursoAlvo  String?
+  banca         String?
+  dataProva     DateTime?
+  onboardingDone Boolean         @default(false)
+  criadoEm      DateTime        @default(now())
+
+  anamnese       Anamnese?
+  metas          Meta[]
+  erros          Erro[]
+  pomodoros      PomodoroSessao[]
+  tentativas     Tentativa[]
+  redacoes       Redacao[]
+  mapas          MapaMental[]
+  conversas      Conversa[]
+  mensagens      Mensagem[]
+  forumTopicos   ForumTopico[]
+  forumComentarios ForumComentario[]
+}
+
+model Anamnese {
+  id              String   @id @default(cuid())
+  userId          String   @unique
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  horasPorDia     Int
+  diasDisponiveis Int[]
+  dificuldades    String[]
+  formatoPreferido String
+  objetivo        String
+  criadoEm        DateTime @default(now())
+  atualizadoEm    DateTime @updatedAt
+}
+
+model Disciplina {
+  id     String @id @default(cuid())
+  nome   String @unique
+  slug   String @unique
+  cor    String
+  ordem  Int
+
+  topicos Topico[]
+  questoes Questao[]
+  mapas   MapaMental[]
+}
+
+model Topico {
+  id            String         @id @default(cuid())
+  disciplinaId  String
+  disciplina    Disciplina     @relation(fields: [disciplinaId], references: [id], onDelete: Cascade)
+  titulo        String
+  ordem         Int
+  tipo          TipoConteudo   @default(VIDEO_PDF)
+  cargaMin      Int            @default(45)
+
+  metas Meta[]
+  erros Erro[]
+}
+
+model Meta {
+  id         String      @id @default(cuid())
+  userId     String
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  topicoId   String
+  topico     Topico      @relation(fields: [topicoId], references: [id], onDelete: Cascade)
+  dia        DateTime
+  semana     Int
+  status     StatusMeta  @default(PENDENTE)
+  origem     OrigemMeta  @default(PLANEJADA)
+  concluidaEm DateTime?
+  criadoEm   DateTime    @default(now())
+
+  @@index([userId, dia])
+}
+
+model Erro {
+  id         String        @id @default(cuid())
+  userId     String
+  user       User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  topicoId   String
+  topico     Topico        @relation(fields: [topicoId], references: [id], onDelete: Cascade)
+  descricao  String
+  data       DateTime      @default(now())
+  revisaoEm  DateTime
+  status     StatusRevisao @default(PENDENTE)
+  revisadoEm DateTime?
+
+  @@index([userId, status])
+}
+
+model PomodoroSessao {
+  id     String        @id @default(cuid())
+  userId String
+  user   User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  inicio DateTime      @default(now())
+  minutos Int
+  tipo   TipoPomodoro  @default(FOCO)
+}
+
+model Questao {
+  id            String      @id @default(cuid())
+  disciplinaId  String
+  disciplina    Disciplina  @relation(fields: [disciplinaId], references: [id], onDelete: Cascade)
+  enunciado     String
+  altA          String
+  altB          String
+  altC          String
+  altD          String
+  altE          String
+  gabarito      Int
+  dificuldade   Dificuldade @default(MEDIA)
+  banca         String
+  comentario    String?
+
+  tentativas Tentativa[]
+}
+
+model Tentativa {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  questaoId String
+  questao   Questao  @relation(fields: [questaoId], references: [id], onDelete: Cascade)
+  acerto    Boolean
+  data      DateTime @default(now())
+}
+
+model Redacao {
+  id     String         @id @default(cuid())
+  userId String
+  user   User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tema   String
+  texto  String
+  nota   Int?
+  status StatusRedacao  @default(PENDENTE)
+  data   DateTime       @default(now())
+}
+
+model MapaMental {
+  id           String   @id @default(cuid())
+  autorId      String
+  autor        User     @relation(fields: [autorId], references: [id], onDelete: Cascade)
+  disciplinaId String
+  disciplina   Disciplina @relation(fields: [disciplinaId], references: [id], onDelete: Cascade)
+  titulo       String
+  arvoreJson   String
+  imagemBase64 String?
+  publica      Boolean  @default(true)
+  criadoEm     DateTime @default(now())
+}
+
+model Conversa {
+  id       String      @id @default(cuid())
+  alunoId  String
+  aluno    User        @relation(fields: [alunoId], references: [id], onDelete: Cascade)
+  topico   String
+  aberta   Boolean     @default(true)
+  criadoEm DateTime    @default(now())
+
+  mensagens Mensagem[]
+}
+
+model Mensagem {
+  id         String   @id @default(cuid())
+  conversaId String
+  conversa   Conversa @relation(fields: [conversaId], references: [id], onDelete: Cascade)
+  autorId    String
+  autor      User     @relation(fields: [autorId], references: [id], onDelete: Cascade)
+  texto      String
+  data       DateTime @default(now())
+}
+
+model ForumTopico {
+  id         String           @id @default(cuid())
+  autorId    String
+  autor      User             @relation(fields: [autorId], references: [id], onDelete: Cascade)
+  titulo     String
+  corpo      String
+  data       DateTime         @default(now())
+
+  comentarios ForumComentario[]
+}
+
+model ForumComentario {
+  id       String      @id @default(cuid())
+  topicoId String
+  topico   ForumTopico @relation(fields: [topicoId], references: [id], onDelete: Cascade)
+  autorId  String
+  autor    User        @relation(fields: [autorId], references: [id], onDelete: Cascade)
+  texto    String
+  data     DateTime    @default(now())
+}
