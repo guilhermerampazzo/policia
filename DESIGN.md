@@ -35,23 +35,25 @@ Defined in `src/app/globals.css` `:root` (app) — landing reuses them (`src/app
   resvg + Inter) in "caderno" style (paper beige bg, pink boxes, maroon titles, sticker
   edge, arrows) with download; interactive React Flow version optional.
 
-## Landing (Persuade — "campo de treino sob cronômetro")
+## Landing (Persuade — "fotografia full-screen + gradientes")
 
 Contract in `src/app/page.tsx` (THESIS/OWN-WORLD/STORY/FIRST VIEWPORT/FORM; seed `3b4a3405`).
 
-- **Hero:** punchline + proof numbers left; tactical photo (duotone) + floating HUD chips
-  (meta do dia, peso da semana, revisão) right — **no simulated browser/window chrome**;
-  slow-rotating target-ring SVG behind.
-- **Chrono band:** 4 mono readouts (1 meta/dia, revisão +10/+15, edital por banca,
-  turmas reduzidas) with pulsing active digit.
+- **Hero:** foto tática em **tela cheia** (duotone) coberta por scrims em gradiente (base→cima,
+  esquerda→direita) que se fundem na página quase-preta; headline + sub + CTAs sobrepostos à
+  imagem alinhados à base; pill de prova em mono (fundo escuro translúcido). **Sem janelas
+  simuladas, sem HUD/cronômetro.**
+- **Faixas de imagem:** seções full-bleed (pista, estudo) com gradiente e frase-statement
+  sobreposta, intercalando os blocos escuros — transição de degradê contínua entre seções
+  (glows de brasa no topo dos blocos escuros).
 - **Pain:** numbered rows of student pains (no icon cards).
 - **Method:** 3 movements (Anamnese → Semana adaptativa → Revisão espaçada) as editorial rows.
 - **Product proof:** real app screenshots (`public/img/screens/`, captured from the running
   app) full-bleed with captions; mobile uses focused crops (object-fit cover).
 - **Edital:** verticalized-syllabus table with recurrence bars (real dataset in `src/lib/edital.ts`).
 - **Mentor, urgency (ember band), FAQ, footer.**
-- **Motion:** staggered hero entrance, floating chips, scroll reveals (progressive —
-  content SSR-visible, JS only hides/reveals), reduced-motion respected.
+- **Motion:** staggered hero entrance, scroll reveals (progressive — content SSR-visible, JS
+  only hides/reveals), reduced-motion respected.
 
 ## Imagery
 

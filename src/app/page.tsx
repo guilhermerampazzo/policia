@@ -6,21 +6,22 @@ export default function LandingPage() {
   return (
     <main className="landing">
       {/*
-      THESIS: aprovação é treino direcionado, não volume aleatório — a landing vende o método
-      como um campo de treino sob cronômetro; recusa o template de "landing de curso"
-      (hero com mockup de navegador, grade de features em cards, depoimentos genéricos).
-      OWN-WORLD: quase-preto de treino + giz branco, leitura de cronômetro em Space Mono,
-      brasa como esforço ativo, hairline como linha de pista, chips HUD flutuantes (sem
-      janelas simuladas), alvo concêntrico girando devagar atrás do herói.
-      STORY: o concurseiro entende em segundos que existe um sistema de treino diário que
-      se adapta aos erros dele; acredita porque vê os números do método e o painel real;
-      age clicando no CTA.
-      FIRST VIEWPORT: headline de impacto à esquerda + prova em números do método; à direita
-      foto tática em duotone com chips reais do produto flutuando (meta do dia, peso da
-      semana, revisão agendada); CTA primário acima da dobra; faixa de cronômetro abaixo.
-      FORM: mundo "campo de treino sob cronômetro" (candidate 4; seed 3b4a3405).
-      FINISH: unreviewed and undocumented is unfinished; this build ends with the finish
-      review, the verdict, and DESIGN.md.
+      THESIS: aprovação é método — a landing vende o sistema com fotografia em tela
+      cheia e transições em gradiente; recusa o template de "landing de curso"
+      (mockups de navegador, cards de features empilhados, HUD/cronômetro).
+      OWN-WORLD: fotos reais full-bleed em duotone cobertas por scrims em gradiente
+      que se fundem na página quase-preta; blocos escuros com glows de brasa nas
+      transições; Inter pesada e condensada; mono só em kickers e leituras curtas.
+      STORY: o concurseiro vê o sistema em ação como uma experiência premium — entende
+      o método em 3 movimentos, acredita porque vê o painel real e a tabela de
+      recorrência da banca, age no CTA.
+      FIRST VIEWPORT: foto tática em tela cheia com gradiente escuro da base para
+      cima e da esquerda para a direita; headline, sub e CTAs sobrepostos à imagem,
+      alinhados à base; prova curta em mono abaixo; nav translúcida em gradiente.
+      FORM: mundo "fotografia full-screen + gradientes" (evolução da direção;
+      seed original 3b4a3405).
+      FINISH: unreviewed and undocumented is unfinished; this build ends with the
+      finish review, the verdict, and DESIGN.md.
       */}
 
       {/* ======================= NAV ======================= */}
@@ -36,8 +37,12 @@ export default function LandingPage() {
         </div>
       </nav>
 
-      {/* ======================= HERO ======================= */}
+      {/* ======================= HERO (foto em tela cheia) ======================= */}
       <header className="lp-hero">
+        <div className="lp-hero-bg">
+          <img src="/img/hero-tactical.jpg" alt="Preparação para concursos policiais" />
+        </div>
+        <div className="lp-hero-scrim" />
         <div className="container-lp lp-hero-inner">
           <div>
             <span className="lp-kicker hero-in d1" style={{ display: "block" }}>
@@ -46,77 +51,25 @@ export default function LandingPage() {
             <h1 className="hero-in d2">
               Aprovado não é sorte.
               <br />
-              É treino <span className="accent">certo, todos os dias.</span>
+              É <span className="accent">método.</span>
             </h1>
             <p className="lp-sub hero-in d3">
-              A Forja monta a sua semana com uma única meta por dia, direciona mais conteúdo
-              para onde você mais erra e agenda cada revisão no dia certo — até a prova.
+              Uma única meta por dia, direcionada pela banca que você vai encarar e
+              corrigida pelos seus erros — com revisão agendada até a prova.
             </p>
             <div className="lp-actions hero-in d4">
               <Link href="/entrar" className="btn btn-ember btn-lg">Começar minha preparação</Link>
               <a href="#metodo" className="btn btn-ghost btn-lg">Ver o método →</a>
             </div>
-            <div className="lp-proof hero-in d5">
-              <div>
-                <span className="pv">01</span>
-                <span>meta por dia — sem dispersão</span>
-              </div>
-              <div>
-                <span className="pv">+10/+15</span>
-                <span>dias — revisão espaçada automática</span>
-              </div>
-              <div>
-                <span className="pv">3–5 anos</span>
-                <span>de recorrência mapeada por banca</span>
-              </div>
-              <div>
-                <span className="pv">Reduzida</span>
-                <span>turma — acompanhamento real</span>
-              </div>
-            </div>
-          </div>
-
-          {/* visual: foto + chips HUD (sem janela simulada) */}
-          <div className="lp-visual hero-in d3">
-            <svg className="lp-alvo" viewBox="0 0 500 500" aria-hidden="true">
-              <g className="anima">
-                <circle cx="250" cy="250" r="200" />
-                <circle cx="250" cy="250" r="150" />
-                <circle cx="250" cy="250" r="100" />
-                <path d="M250 20 V80 M250 420 V480 M20 250 H80 M420 250 H480" stroke="rgba(255,255,255,0.09)" />
-              </g>
-            </svg>
-            <div className="lp-foto">
-              <img src="/img/hero-tactical.jpg" alt="Preparação para concursos policiais" />
-            </div>
-            <div className="lp-chip c1">
-              <span className="k">Meta do dia</span>
-              <b><span className="ok" />Direito Penal — crimes contra a fé pública</b>
-              <span className="t">45:00</span>
-            </div>
-            <div className="lp-chip c2">
-              <span className="k">Semana adaptativa</span>
-              <b>Direito Penal</b>
-              <span className="t">peso +2.8× na próxima semana</span>
-            </div>
-            <div className="lp-chip c3">
-              <span className="k">Erro registrado</span>
-              <b>Revisão agendada automaticamente</b>
-              <span className="t">+10 dias</span>
+            <div className="lp-proof hero-in d4">
+              <span><b>01</b> meta por dia</span>
+              <span>revisão espaçada <b>+10/+15 dias</b></span>
+              <span>recorrência de <b>3–5 anos</b> por banca</span>
+              <span>turmas <b>reduzidas</b></span>
             </div>
           </div>
         </div>
       </header>
-
-      {/* ======================= FAIXA CRONÔMETRO ======================= */}
-      <div className="lp-chrono">
-        <div className="lp-chrono-inner">
-          <span className="ct"><b>1</b> META POR DIA</span>
-          <span className="ct">REVISÃO <b>+10/+15</b> DIAS</span>
-          <span className="ct">EDITAL VERTICALIZADO <b>POR BANCA</b></span>
-          <span className="ct">TURMAS <b>REDUZIDAS</b></span>
-        </div>
-      </div>
 
       {/* ======================= DOR ======================= */}
       <section className="lp-sec lp-pain" style={{ paddingBottom: 60 }}>
@@ -145,48 +98,65 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ======================= FAIXA DE IMAGEM 1 ======================= */}
+      <section className="lp-band">
+        <div className="bg">
+          <img src="/img/track.jpg" alt="" loading="lazy" />
+        </div>
+        <div className="scrim" />
+        <div className="container-lp inner">
+          <Reveal>
+            <span className="lp-kicker">Semana planejada</span>
+            <h2>Cada semana é um plano.<br />Cada dia, <span className="accent">uma meta.</span></h2>
+            <p>
+              Nada de lista interminável. O aluno abre o painel e sabe exatamente o que
+              fazer hoje — e o mentor acompanha tudo de uma central.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
       {/* ======================= MÉTODO ======================= */}
       <section className="lp-sec" id="metodo" style={{ paddingTop: 60 }}>
+        <div className="lp-glow" />
         <div className="container-lp">
           <Reveal>
             <div className="lp-sec-head">
-              <span className="lp-kicker">O treino em 3 movimentos</span>
-              <h2>Um sistema que <span className="accent">treina com você.</span></h2>
+              <span className="lp-kicker">O método em 3 movimentos</span>
+              <h2>Um sistema que <span className="accent">trabalha com você.</span></h2>
               <p className="lp-lead">
-                Nada de curso gravado largado em uma plataforma. A Forja é um plano de treino
-                vivo: pergunta, planeja, corrige a rota com os seus erros e agenda a revisão.
+                Nada de curso gravado largado em uma plataforma. A Forja pergunta, planeja,
+                corrige a rota com os seus erros e agenda a revisão.
               </p>
             </div>
           </Reveal>
           <div style={{ marginTop: 40 }}>
             <Reveal>
               <div className="lp-method-row">
-                <span className="n">01 · Aquecimento</span>
-                <h3>Anamnese</h3>
+                <span className="n">01 · Anamnese</span>
+                <h3>O sistema pergunta antes de planejar</h3>
                 <p>
-                  Antes de montar o plano, o sistema pergunta: quantas horas por dia, quais dias,
-                  quais dificuldades, qual banca. O treino começa do seu tempo real — não de um
-                  cronograma genérico.
+                  Quantas horas por dia, quais dias, quais dificuldades, qual banca. O plano
+                  nasce do seu tempo real — não de um cronograma genérico.
                 </p>
               </div>
             </Reveal>
             <Reveal>
               <div className="lp-method-row">
-                <span className="n">02 · Série principal</span>
-                <h3>Semana adaptativa</h3>
+                <span className="n">02 · Semana adaptativa</span>
+                <h3>O plano se adapta aos seus erros</h3>
                 <p>
-                  Uma meta por dia, nada além. E quando você erra bastante em Direito Penal, a
-                  semana seguinte pesa mais Direito Penal — sem nunca pular a sequência do
-                  conteúdo.
+                  Uma meta por dia, nada além. Errou bastante em Direito Penal? A semana
+                  seguinte pesa mais Direito Penal — sem pular a sequência do conteúdo.
                 </p>
               </div>
             </Reveal>
             <Reveal>
               <div className="lp-method-row">
-                <span className="n">03 · Recuperação</span>
-                <h3>Revisão espaçada</h3>
+                <span className="n">03 · Revisão espaçada</span>
+                <h3>O erro volta no dia certo</h3>
                 <p>
-                  Todo erro registrado volta no dia certo (+10/+15 dias), até virar acerto
+                  Todo erro registrado vira revisão agendada (+10/+15 dias), até virar acerto
                   automático. Na reta final, a revisão é só o seu caderno de erros.
                 </p>
               </div>
@@ -195,8 +165,27 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ======================= FAIXA DE IMAGEM 2 ======================= */}
+      <section className="lp-band">
+        <div className="bg">
+          <img src="/img/estudo.jpg" alt="" loading="lazy" />
+        </div>
+        <div className="scrim" />
+        <div className="container-lp inner">
+          <Reveal>
+            <span className="lp-kicker">Conteúdo direcionado</span>
+            <h2>O conteúdo certo, na ordem certa, <span className="accent">no seu tempo.</span></h2>
+            <p>
+              Videoaulas e materiais do próprio mentor, priorizados pelo que a sua banca
+              mais cobra nos últimos anos.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
       {/* ======================= PRODUTO (painel real) ======================= */}
       <section className="lp-sec" id="produto" style={{ paddingTop: 40 }}>
+        <div className="lp-glow" />
         <div className="container-lp">
           <Reveal>
             <div className="lp-sec-head">
@@ -219,8 +208,8 @@ export default function LandingPage() {
                 <figcaption className="lp-prod-cap">
                   <h3>Uma meta por dia. Sem dispersão.</h3>
                   <p>
-                    O aluno abre o painel e sabe exatamente o que fazer hoje — com as pendências
-                    em alerta e a semana inteira planejada.
+                    O aluno abre o painel e sabe exatamente o que fazer hoje — com as
+                    pendências em alerta e a semana inteira planejada.
                   </p>
                 </figcaption>
               </div>
@@ -317,6 +306,7 @@ export default function LandingPage() {
 
       {/* ======================= MENTOR ======================= */}
       <section className="lp-sec" id="mentor" style={{ paddingTop: 40 }}>
+        <div className="lp-glow" />
         <div className="container-lp lp-mentor">
           <Reveal>
             <div className="foto">
