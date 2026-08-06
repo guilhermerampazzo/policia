@@ -54,7 +54,7 @@ export default async function MapaView({ params }: { params: Promise<{ id: strin
           <img src={imagem} alt={`Mapa mental: ${mapa.titulo}`} style={{ width: "100%", height: "auto", borderRadius: 8 }} />
         </div>
       ) : (
-        <MindMapView tree={arvore} height={560} />
+        <InteractiveMap arvore={arvore} />
       )}
 
       <div style={{ display: "flex", gap: 12, marginTop: 14, flexWrap: "wrap", alignItems: "center" }}>

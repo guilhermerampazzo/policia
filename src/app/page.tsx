@@ -1,326 +1,392 @@
 import Link from "next/link";
+import "./landing.css";
+import Reveal from "@/components/Reveal";
 
 export default function LandingPage() {
   return (
     <main className="landing">
-      <style>{`
-        .landing{ background:#08090b; color:#f4f3ef; }
-        .l-nav{ position:fixed; top:0; left:0; right:0; z-index:50;
-          display:flex; align-items:center; justify-content:space-between;
-          padding:18px 34px; backdrop-filter:blur(12px);
-          background:rgba(8,9,11,.72); border-bottom:1px solid rgba(255,255,255,.06); }
-        .l-nav .l-logo{ height:30px; }
-        .l-nav-links{ display:flex; align-items:center; gap:28px; font-size:.86rem; color:#a7adb8; }
-        .l-nav-links a:hover{ color:#fff; }
-        .l-hero{ position:relative; min-height:100vh; display:flex; align-items:center;
-          overflow:hidden; padding:120px 0 80px;
-          background:
-            radial-gradient(1100px 700px at 78% -10%, rgba(243,126,31,.16), transparent 60%),
-            radial-gradient(800px 500px at -10% 30%, rgba(214,95,13,.08), transparent 55%),
-            #08090b; }
-        .l-hero::after{ content:""; position:absolute; inset:auto 0 0 0; height:280px;
-          background:linear-gradient(180deg, transparent, #08090b); pointer-events:none; }
-        .l-hero-inner{ position:relative; z-index:2; display:grid; grid-template-columns:1.05fr .95fr;
-          gap:60px; align-items:center; width:100%; max-width:1240px; margin:0 auto; padding:0 30px; }
-        .l-hero h1{ font-size:clamp(2.6rem,5.2vw,4.4rem); line-height:1.04; font-weight:600;
-          letter-spacing:-0.01em; }
-        .l-hero h1 .serif-em{ font-style:italic; color:var(--ember-400); }
-        .l-sub{ color:#a7adb8; font-size:1.06rem; line-height:1.65; max-width:520px; margin:22px 0 30px; }
-        .l-actions{ display:flex; gap:14px; flex-wrap:wrap; }
-        .l-proof{ display:flex; gap:40px; margin-top:44px; border-top:1px solid rgba(255,255,255,.08); padding-top:26px; }
-        .l-proof b{ font-family:var(--font-display); font-size:1.6rem; display:block; }
-        .l-proof span{ font-size:.74rem; color:#6d7480; text-transform:uppercase; letter-spacing:.06em; }
+      {/*
+      THESIS: aprovação é treino direcionado, não volume aleatório — a landing vende o método
+      como um campo de treino sob cronômetro; recusa o template de "landing de curso"
+      (hero com mockup de navegador, grade de features em cards, depoimentos genéricos).
+      OWN-WORLD: quase-preto de treino + giz branco, leitura de cronômetro em Space Mono,
+      brasa como esforço ativo, hairline como linha de pista, chips HUD flutuantes (sem
+      janelas simuladas), alvo concêntrico girando devagar atrás do herói.
+      STORY: o concurseiro entende em segundos que existe um sistema de treino diário que
+      se adapta aos erros dele; acredita porque vê os números do método e o painel real;
+      age clicando no CTA.
+      FIRST VIEWPORT: headline de impacto à esquerda + prova em números do método; à direita
+      foto tática em duotone com chips reais do produto flutuando (meta do dia, peso da
+      semana, revisão agendada); CTA primário acima da dobra; faixa de cronômetro abaixo.
+      FORM: mundo "campo de treino sob cronômetro" (candidate 4; seed 3b4a3405).
+      FINISH: unreviewed and undocumented is unfinished; this build ends with the finish
+      review, the verdict, and DESIGN.md.
+      */}
 
-        .mockup{ position:relative; }
-        .mockup-frame{ border:1px solid rgba(255,255,255,.12); border-radius:20px; overflow:hidden;
-          background:#0e1013; box-shadow:0 60px 120px -40px rgba(0,0,0,.8), 0 0 0 1px rgba(243,126,31,.06); }
-        .mockup-bar{ display:flex; gap:6px; padding:12px 16px; border-bottom:1px solid rgba(255,255,255,.06); }
-        .mockup-bar i{ width:10px; height:10px; border-radius:50%; display:block; }
-        .mockup-body{ padding:18px; display:grid; grid-template-columns:150px 1fr; gap:16px; }
-        .mockup-side{ display:flex; flex-direction:column; gap:7px; }
-        .mockup-side span{ height:26px; border-radius:7px; background:rgba(255,255,255,.05); }
-        .mockup-side span.on{ background:linear-gradient(135deg,var(--ember-500),var(--ember-700)); }
-        .mockup-main{ display:flex; flex-direction:column; gap:12px; }
-        .m-card{ border:1px solid rgba(255,255,255,.08); border-radius:12px; background:#16181e; padding:14px; }
-        .m-card.alert{ background:rgba(240,177,66,.08); border-color:rgba(240,177,66,.35); }
-        .m-row{ display:flex; justify-content:space-between; align-items:center; }
-        .m-chip{ font-family:var(--font-mono); font-size:.58rem; letter-spacing:.1em; text-transform:uppercase;
-          padding:4px 8px; border-radius:5px; border:1px solid rgba(243,126,31,.4); color:#ffc173; background:rgba(243,126,31,.1); }
-        .m-progress{ height:6px; border-radius:99px; background:#23262d; overflow:hidden; margin-top:10px; }
-        .m-progress span{ display:block; height:100%; background:linear-gradient(90deg,var(--ember-600),var(--ember-400)); border-radius:99px; }
-        .m-week{ display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin-top:12px; }
-        .m-week div{ height:56px; border-radius:8px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06); }
-        .m-week div.hot{ border-color:var(--ember-500); background:rgba(243,126,31,.12); }
-        .mockup-glow{ position:absolute; inset:-40px; z-index:-1;
-          background:radial-gradient(600px 300px at 50% 50%, rgba(243,126,31,.18), transparent 70%);
-          filter:blur(20px); }
-
-        .l-sec{ padding:110px 0; }
-        .l-sec-inner{ max-width:1240px; margin:0 auto; padding:0 30px; }
-        .l-sec h2{ font-size:clamp(1.9rem,3.4vw,2.9rem); font-weight:600; line-height:1.1; }
-        .l-sec h2 .serif-em{ font-style:italic; color:var(--ember-400); }
-        .l-lead{ color:#a7adb8; max-width:640px; margin-top:14px; line-height:1.65; }
-
-        .steps{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:48px; }
-        .step{ border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:26px; background:linear-gradient(180deg,#14161b,#0f1114); }
-        .step .n{ font-family:var(--font-mono); color:var(--ember-400); font-size:.8rem; }
-        .step h3{ font-size:1.3rem; margin:.5em 0 .6em; }
-        .step p{ color:#a7adb8; font-size:.9rem; line-height:1.6; }
-
-        .feats{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.08); border-radius:16px; overflow:hidden; margin-top:48px; }
-        .feat{ background:#0f1114; padding:28px 26px; min-height:190px; transition:background 200ms ease; }
-        .feat:hover{ background:#14161b; }
-        .feat .num{ font-family:var(--font-mono); font-size:.74rem; color:var(--ember-400); }
-        .feat h3{ font-size:1.15rem; margin:.55em 0 .5em; }
-        .feat p{ color:#a7adb8; font-size:.88rem; line-height:1.6; }
-
-        .l-adaptive{ border-radius:18px; padding:56px; position:relative; overflow:hidden;
-          background:linear-gradient(150deg, rgba(243,126,31,.13), rgba(214,95,13,.04) 60%), #0f1114;
-          border:1px solid var(--line-ember); }
-        .l-adaptive .bars{ display:grid; grid-template-columns:1fr 1fr; gap:34px; margin-top:36px; align-items:end; }
-        .bar-col{ display:flex; flex-direction:column; gap:9px; }
-        .bar-row{ display:grid; grid-template-columns:150px 1fr 34px; gap:12px; align-items:center; font-size:.82rem; color:#c7ccd4; }
-        .bar-track{ height:10px; border-radius:99px; background:#23262d; overflow:hidden; }
-        .bar-track span{ display:block; height:100%; border-radius:99px; transition:width 800ms var(--ease-out); }
-
-        .l-mentor{ display:grid; grid-template-columns:300px 1fr; gap:64px; align-items:center; }
-        .l-mentor img{ border-radius:16px; box-shadow:0 40px 90px -30px rgba(0,0,0,.8); }
-        .l-cta{ text-align:center; padding:120px 0 90px; position:relative;
-          background:
-            radial-gradient(700px 320px at 50% 110%, rgba(243,126,31,.22), transparent 70%), #08090b; }
-        .l-cta h2{ font-size:clamp(1.9rem,3.6vw,3rem); line-height:1.08; }
-        .l-footer{ border-top:1px solid rgba(255,255,255,.08); padding:26px 0; font-size:.78rem; color:#6d7480; }
-        .l-footer-inner{ max-width:1240px; margin:0 auto; padding:0 30px; display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; }
-
-        @media (max-width:1024px){
-          .l-hero-inner{ grid-template-columns:1fr; }
-          .mockup{ max-width:560px; }
-          .steps, .feats, .l-adaptive .bars{ grid-template-columns:1fr; }
-          .l-mentor{ grid-template-columns:1fr; gap:34px; }
-        }
-      `}</style>
-
-      {/* NAV */}
-      <nav className="l-nav">
-        <img src="/logo/logo-horizontal.jpeg" alt="Mentoria Forja" className="l-logo" />
-        <div className="l-nav-links">
-          <a href="#sistema">O sistema</a>
-          <a href="#recursos">Recursos</a>
-          <a href="#adaptativo">Semana adaptativa</a>
-          <Link href="/entrar" className="btn btn-ember btn-sm">Entrar</Link>
+      {/* ======================= NAV ======================= */}
+      <nav className="lp-nav">
+        <img src="/logo/logo-horizontal.jpeg" alt="Mentoria Forja" className="lp-logo" />
+        <div className="lp-nav-links">
+          <a href="#metodo">Método</a>
+          <a href="#produto">O painel</a>
+          <a href="#edital">Bancas</a>
+          <a href="#mentor">Mentor</a>
+          <a href="#faq">Dúvidas</a>
+          <Link href="/entrar" className="btn btn-ember btn-sm">Quero minha vaga</Link>
         </div>
       </nav>
 
-      {/* HERO */}
-      <header className="l-hero">
-        <div className="l-hero-inner">
-          <div className="rise">
-            <span className="eyebrow" style={{ color: "var(--ember-400)" }}>
+      {/* ======================= HERO ======================= */}
+      <header className="lp-hero">
+        <div className="container-lp lp-hero-inner">
+          <div>
+            <span className="lp-kicker hero-in d1" style={{ display: "block" }}>
               Mentoria para concursos policiais
             </span>
-            <h1 style={{ marginTop: "18px" }}>
-              Sua aprovação não nasce pronta.{" "}
-              <span className="serif-em">Ela é forjada.</span>
+            <h1 className="hero-in d2">
+              Aprovado não é sorte.
+              <br />
+              É treino <span className="accent">certo, todos os dias.</span>
             </h1>
-            <p className="l-sub">
-              Um método, um mentor, um único painel. A semana de estudo se adapta
-              ao seu dia, aos seus erros e ao seu tempo — até o dia da prova.
+            <p className="lp-sub hero-in d3">
+              A Forja monta a sua semana com uma única meta por dia, direciona mais conteúdo
+              para onde você mais erra e agenda cada revisão no dia certo — até a prova.
             </p>
-            <div className="l-actions">
-              <Link href="/entrar" className="btn btn-ember btn-lg">Começar agora</Link>
-              <a href="#sistema" className="btn btn-ghost btn-lg">Ver o sistema →</a>
+            <div className="lp-actions hero-in d4">
+              <Link href="/entrar" className="btn btn-ember btn-lg">Começar minha preparação</Link>
+              <a href="#metodo" className="btn btn-ghost btn-lg">Ver o método →</a>
             </div>
-            <div className="l-proof">
-              <div><b>1 meta</b><span>por dia — sem dispersão</span></div>
-              <div><b>Adaptativo</b><span>aos seus erros reais</span></div>
-              <div><b>+3-5 anos</b><span>de recorrência por banca</span></div>
+            <div className="lp-proof hero-in d5">
+              <div>
+                <span className="pv">01</span>
+                <span>meta por dia — sem dispersão</span>
+              </div>
+              <div>
+                <span className="pv">+10/+15</span>
+                <span>dias — revisão espaçada automática</span>
+              </div>
+              <div>
+                <span className="pv">3–5 anos</span>
+                <span>de recorrência mapeada por banca</span>
+              </div>
+              <div>
+                <span className="pv">Reduzida</span>
+                <span>turma — acompanhamento real</span>
+              </div>
             </div>
           </div>
 
-          {/* MOCKUP */}
-          <div className="mockup rise">
-            <div className="mockup-glow" />
-            <div className="mockup-frame">
-              <div className="mockup-bar">
-                <i style={{ background: "#ff6b5e" }} /><i style={{ background: "#f0b142" }} /><i style={{ background: "#3dd68c" }} />
-              </div>
-              <div className="mockup-body">
-                <div className="mockup-side">
-                  <span className="on" /><span /><span /><span />
-                </div>
-                <div className="mockup-main">
-                  <div className="m-card alert">
-                    <div className="m-row">
-                      <span style={{ fontSize: ".72rem", color: "#f0b142", fontWeight: 600 }}>Você deixou 2 metas pendentes</span>
-                      <span style={{ fontSize: ".62rem", color: "#6d7480" }}>SEG · TER</span>
-                    </div>
-                  </div>
-                  <div className="m-card">
-                    <div className="m-row">
-                      <span className="m-chip">Direito Penal</span>
-                      <span style={{ fontSize: ".66rem", color: "#6d7480" }}>45 MIN · VIDEOAULA + PDF</span>
-                    </div>
-                    <div style={{ fontWeight: 600, marginTop: 10, fontSize: ".92rem" }}>
-                      Meta do dia — Crimes contra a fé pública
-                    </div>
-                    <div className="m-progress"><span style={{ width: "68%" }} /></div>
-                  </div>
-                  <div className="m-card">
-                    <div className="m-row">
-                      <span style={{ fontSize: ".72rem", color: "#a7adb8" }}>Sua semana</span>
-                      <span className="m-chip">pomodoro 25:00</span>
-                    </div>
-                    <div className="m-week">
-                      <div className="hot" /><div className="hot" /><div className="hot" /><div /><div />
-                    </div>
-                  </div>
-                </div>
-              </div>
+          {/* visual: foto + chips HUD (sem janela simulada) */}
+          <div className="lp-visual hero-in d3">
+            <svg className="lp-alvo" viewBox="0 0 500 500" aria-hidden="true">
+              <g className="anima">
+                <circle cx="250" cy="250" r="200" />
+                <circle cx="250" cy="250" r="150" />
+                <circle cx="250" cy="250" r="100" />
+                <path d="M250 20 V80 M250 420 V480 M20 250 H80 M420 250 H480" stroke="rgba(255,255,255,0.09)" />
+              </g>
+            </svg>
+            <div className="lp-foto">
+              <img src="/img/hero-tactical.jpg" alt="Preparação para concursos policiais" />
+            </div>
+            <div className="lp-chip c1">
+              <span className="k">Meta do dia</span>
+              <b><span className="ok" />Direito Penal — crimes contra a fé pública</b>
+              <span className="t">45:00</span>
+            </div>
+            <div className="lp-chip c2">
+              <span className="k">Semana adaptativa</span>
+              <b>Direito Penal</b>
+              <span className="t">peso +2.8× na próxima semana</span>
+            </div>
+            <div className="lp-chip c3">
+              <span className="k">Erro registrado</span>
+              <b>Revisão agendada automaticamente</b>
+              <span className="t">+10 dias</span>
             </div>
           </div>
         </div>
       </header>
 
-      {/* SISTEMA / 3 PASSOS */}
-      <section className="l-sec" id="sistema" style={{ background: "#0a0b0d" }}>
-        <div className="l-sec-inner">
-          <span className="eyebrow">O sistema por trás do método</span>
-          <h2 style={{ marginTop: "14px" }}>
-            Três engrenagens que <span className="serif-em">giram por você</span> todos os dias.
-          </h2>
-          <div className="steps">
-            <div className="step">
-              <span className="n">01 · ANAMNESE</span>
-              <h3>O sistema pergunta antes de planejar</h3>
-              <p>
-                No primeiro acesso, o aluno responde: quantas horas por dia,
-                quais disciplinas trazem mais dificuldade, qual banca e qual o
-                prazo até a prova.
-              </p>
-            </div>
-            <div className="step">
-              <span className="n">02 · SEMANA ADAPTATIVA</span>
-              <h3>O plano se adapta aos erros</h3>
-              <p>
-                Errou bastante em Direito Penal esta semana? A semana que vem
-                recebe mais conteúdo de Direito Penal — sem pular a sequência do
-                currículo.
-              </p>
-            </div>
-            <div className="step">
-              <span className="n">03 · REVISÃO INTELIGENTE</span>
-              <h3>O caderno de erros trabalha sozinho</h3>
-              <p>
-                Cada erro vira revisão agendada que volta no dia certo. Na reta
-                final, a revisão é só caderno de erros + questões.
-              </p>
-            </div>
-          </div>
+      {/* ======================= FAIXA CRONÔMETRO ======================= */}
+      <div className="lp-chrono">
+        <div className="lp-chrono-inner">
+          <span className="ct"><b>1</b> META POR DIA</span>
+          <span className="ct">REVISÃO <b>+10/+15</b> DIAS</span>
+          <span className="ct">EDITAL VERTICALIZADO <b>POR BANCA</b></span>
+          <span className="ct">TURMAS <b>REDUZIDAS</b></span>
         </div>
-      </section>
+      </div>
 
-      {/* FEATURES */}
-      <section className="l-sec" id="recursos" style={{ paddingTop: "40px" }}>
-        <div className="l-sec-inner">
-          <span className="eyebrow">Recursos</span>
-          <h2 style={{ marginTop: "14px" }}>Cada ferramenta existe para <span className="serif-em">um</span> propósito: te manter na meta certa.</h2>
-          <div className="feats">
-            <div className="feat"><span className="num">01</span><h3>Meta única do dia</h3><p>Ao entrar, o aluno vê exatamente a tarefa de hoje — nada mais. Pendências aparecem como alerta, nunca escondidas.</p></div>
-            <div className="feat"><span className="num">02</span><h3>Pomodoro nativo</h3><p>Relógio de foco embutido no painel. Cada sessão vira horas reais no relatório de progressão.</p></div>
-            <div className="feat"><span className="num">03</span><h3>Caderno de erros</h3><p>Cada erro vira anotação por disciplina e conteúdo, com revisão agendada automaticamente em 10, 15 dias.</p></div>
-            <div className="feat"><span className="num">04</span><h3>Mapa mental por IA</h3><p>O mentor informa o conteúdo e a IA estrutura o mapa mental completo — pronto para revisar.</p></div>
-            <div className="feat"><span className="num">05</span><h3>Relatório de progressão</h3><p>Horas, acertos, revisões e evolução do edital — o aluno e o mentor enxergam a curva real até a prova.</p></div>
-            <div className="feat"><span className="num">06</span><h3>Painel do mentor</h3><p>Perfil completo de cada mentorado, anamnese, erros e simulação de cenários — uma central, sem planilhas.</p></div>
-          </div>
-        </div>
-      </section>
-
-      {/* ADAPTATIVO */}
-      <section className="l-sec" id="adaptativo">
-        <div className="l-sec-inner">
-          <div className="l-adaptive">
-            <span className="eyebrow" style={{ color: "var(--ember-400)" }}>Semana adaptativa</span>
-            <h2 style={{ marginTop: "14px" }}>
-              Esta semana ele errou <span className="serif-em">Direito Penal</span>.
-              <br />Semana que vem, o sistema direciona mais.
-            </h2>
-            <p className="l-lead">
-              O motor pondera erros recentes + dificuldades declaradas + horas
-              disponíveis para distribuir os dias da semana. O conteúdo segue a
-              sequência do currículo — só o peso de cada disciplina muda.
-            </p>
-            <div className="bars">
-              <div>
-                <div style={{ fontFamily: "var(--font-mono)", fontSize: ".66rem", letterSpacing: ".14em", color: "#6d7480", textTransform: "uppercase", marginBottom: 16 }}>Semana atual</div>
-                {[
-                  ["Português", 30, "#a7adb8"],
-                  ["Direito Penal", 34, "#ffa64d"],
-                  ["Raciocínio Lógico", 22, "#9a7bf5"],
-                  ["Direitos Humanos", 14, "#4aa8e8"],
-                ].map(([n, w, c]) => (
-                  <div className="bar-row" key={n as string}>
-                    <span>{n}</span>
-                    <div className="bar-track"><span style={{ width: `${w}%`, background: c as string }} /></div>
-                    <b style={{ fontSize: ".78rem", color: "#c7ccd4" }}>{w}%</b>
-                  </div>
-                ))}
-              </div>
-              <div>
-                <div style={{ fontFamily: "var(--font-mono)", fontSize: ".66rem", letterSpacing: ".14em", color: "#f37e1f", textTransform: "uppercase", marginBottom: 16 }}>Semana que vem →</div>
-                {[
-                  ["Português", 22, "#a7adb8"],
-                  ["Direito Penal", 48, "#f37e1f"],
-                  ["Raciocínio Lógico", 18, "#9a7bf5"],
-                  ["Direitos Humanos", 12, "#4aa8e8"],
-                ].map(([n, w, c]) => (
-                  <div className="bar-row" key={n as string}>
-                    <span>{n}</span>
-                    <div className="bar-track"><span style={{ width: `${w}%`, background: c as string }} /></div>
-                    <b style={{ fontSize: ".78rem", color: "#c7ccd4" }}>{w}%</b>
-                  </div>
-                ))}
-              </div>
+      {/* ======================= DOR ======================= */}
+      <section className="lp-sec lp-pain" style={{ paddingBottom: 60 }}>
+        <div className="container-lp">
+          <Reveal>
+            <div className="lp-sec-head">
+              <span className="lp-kicker">Antes do método, a verdade</span>
+              <h2>Você reconhece <span className="accent">esse cenário?</span></h2>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* MENTOR */}
-      <section className="l-sec" style={{ paddingTop: "20px" }}>
-        <div className="l-sec-inner l-mentor">
-          <img src="/img/mentor.jpeg" alt="Mentor Forja" />
-          <div>
-            <span className="eyebrow">Quem comanda a forja</span>
-            <h2 style={{ marginTop: "14px" }}>Um mentor. Um método. Nenhum atalho.</h2>
-            <p className="l-lead">
-              Servidor público dedicado a bancas de concursos policiais. Produz o
-              próprio material, elabora as próprias questões e constrói, para cada
-              mentorado, um plano verticalizado — não um curso genérico revendido.
-            </p>
-            <div style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 26 }}>
-              {["Conteúdo autoral, sem terceirização de método", "Turmas reduzidas — acompanhamento real", "Foco absoluto em bancas policiais"].map((t) => (
-                <div key={t} style={{ display: "flex", alignItems: "center", gap: 12, fontSize: ".95rem" }}>
-                  <span className="hex" style={{ width: 14, height: 14, background: "linear-gradient(160deg,var(--ember-500),var(--ember-700))" }} />
-                  {t}
+          </Reveal>
+          <div style={{ marginTop: 44 }}>
+            {[
+              ["01", "Você estuda, estuda — e não sabe o que a banca cobra de verdade."],
+              ["02", "Erra uma questão, diz que vai revisar — e nunca mais volta nela."],
+              ["03", "Segunda-feira com cinco matérias abertas, sem prioridade, sem plano."],
+              ["04", "Faltam 30 dias para a prova e não existe uma revisão estruturada."],
+            ].map(([n, t]) => (
+              <Reveal key={n}>
+                <div className="lp-pain-row">
+                  <span className="n">{n}</span>
+                  <p>{t}</p>
                 </div>
-              ))}
-            </div>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="l-cta">
-        <div className="container">
-          <h2>Sua vaga está sendo disputada agora.<br /><span className="serif-em">Comece a forjar a sua aprovação.</span></h2>
-          <Link href="/entrar" className="btn btn-ember btn-lg" style={{ marginTop: 34 }}>Quero minha vaga na mentoria</Link>
+      {/* ======================= MÉTODO ======================= */}
+      <section className="lp-sec" id="metodo" style={{ paddingTop: 60 }}>
+        <div className="container-lp">
+          <Reveal>
+            <div className="lp-sec-head">
+              <span className="lp-kicker">O treino em 3 movimentos</span>
+              <h2>Um sistema que <span className="accent">treina com você.</span></h2>
+              <p className="lp-lead">
+                Nada de curso gravado largado em uma plataforma. A Forja é um plano de treino
+                vivo: pergunta, planeja, corrige a rota com os seus erros e agenda a revisão.
+              </p>
+            </div>
+          </Reveal>
+          <div style={{ marginTop: 40 }}>
+            <Reveal>
+              <div className="lp-method-row">
+                <span className="n">01 · Aquecimento</span>
+                <h3>Anamnese</h3>
+                <p>
+                  Antes de montar o plano, o sistema pergunta: quantas horas por dia, quais dias,
+                  quais dificuldades, qual banca. O treino começa do seu tempo real — não de um
+                  cronograma genérico.
+                </p>
+              </div>
+            </Reveal>
+            <Reveal>
+              <div className="lp-method-row">
+                <span className="n">02 · Série principal</span>
+                <h3>Semana adaptativa</h3>
+                <p>
+                  Uma meta por dia, nada além. E quando você erra bastante em Direito Penal, a
+                  semana seguinte pesa mais Direito Penal — sem nunca pular a sequência do
+                  conteúdo.
+                </p>
+              </div>
+            </Reveal>
+            <Reveal>
+              <div className="lp-method-row">
+                <span className="n">03 · Recuperação</span>
+                <h3>Revisão espaçada</h3>
+                <p>
+                  Todo erro registrado volta no dia certo (+10/+15 dias), até virar acerto
+                  automático. Na reta final, a revisão é só o seu caderno de erros.
+                </p>
+              </div>
+            </Reveal>
+          </div>
         </div>
       </section>
 
-      <footer className="l-footer">
-        <div className="l-footer-inner">
-          <span>© Mentoria Forja — plataforma em desenvolvimento. Conteúdo ilustrativo.</span>
-          <span>Feito com método, para concurseiros sérios.</span>
+      {/* ======================= PRODUTO (painel real) ======================= */}
+      <section className="lp-sec" id="produto" style={{ paddingTop: 40 }}>
+        <div className="container-lp">
+          <Reveal>
+            <div className="lp-sec-head">
+              <span className="lp-kicker">O painel do atleta</span>
+              <h2>O sistema na mão, <span className="accent">todo dia.</span></h2>
+              <p className="lp-lead">
+                Capturas reais da plataforma — nada de promessa. O que você vê aqui é o que o
+                aluno e o mentor usam diariamente.
+              </p>
+            </div>
+          </Reveal>
+
+          <div style={{ marginTop: 56 }}>
+            <Reveal>
+              <div className="lp-prod-item">
+                <figure className="lp-prod-fig">
+                  <span className="lp-prod-tag">Painel do dia · aluno</span>
+                  <img src="/img/screens/dashboard.png" alt="Painel do dia com a meta única" loading="lazy" style={{ objectPosition: "35% 10%" }} />
+                </figure>
+                <figcaption className="lp-prod-cap">
+                  <h3>Uma meta por dia. Sem dispersão.</h3>
+                  <p>
+                    O aluno abre o painel e sabe exatamente o que fazer hoje — com as pendências
+                    em alerta e a semana inteira planejada.
+                  </p>
+                </figcaption>
+              </div>
+            </Reveal>
+            <Reveal>
+              <div className="lp-prod-item">
+                <figure className="lp-prod-fig">
+                  <span className="lp-prod-tag">Planejamento · mentor</span>
+                  <img src="/img/screens/planejamento.png" alt="Motor adaptativo com pesos calculados" loading="lazy" style={{ objectPosition: "20% 8%" }} />
+                </figure>
+                <figcaption className="lp-prod-cap">
+                  <h3>A semana se adapta aos erros.</h3>
+                  <p>
+                    O motor calcula o peso de cada disciplina — erros recentes, dificuldade
+                    declarada, horas disponíveis — e gera a semana seguinte.
+                  </p>
+                </figcaption>
+              </div>
+            </Reveal>
+            <Reveal>
+              <div className="lp-prod-item">
+                <figure className="lp-prod-fig">
+                  <span className="lp-prod-tag">Caderno de erros · aluno</span>
+                  <img src="/img/screens/caderno.png" alt="Caderno de erros com revisão agendada" loading="lazy" style={{ objectPosition: "18% 8%" }} />
+                </figure>
+                <figcaption className="lp-prod-cap">
+                  <h3>O erro volta no dia certo.</h3>
+                  <p>
+                    Cada erro vira anotação por disciplina e conteúdo, com revisão espaçada
+                    agendada sozinha — até virar acerto.
+                  </p>
+                </figcaption>
+              </div>
+            </Reveal>
+            <Reveal>
+              <div className="lp-prod-item">
+                <figure className="lp-prod-fig">
+                  <span className="lp-prod-tag">Relatório · aluno</span>
+                  <img src="/img/screens/relatorio.png" alt="Relatório de progressão com gráficos" loading="lazy" style={{ objectPosition: "40% 8%" }} />
+                </figure>
+                <figcaption className="lp-prod-cap">
+                  <h3>Sua curva real até a prova.</h3>
+                  <p>
+                    Horas de foco, acertos por disciplina, metas concluídas e revisões — semana
+                    a semana, sem achismo.
+                  </p>
+                </figcaption>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ======================= EDITAL / BANCA ======================= */}
+      <section className="lp-sec" id="edital" style={{ paddingTop: 20 }}>
+        <div className="container-lp">
+          <Reveal>
+            <div className="lp-edital">
+              <div>
+                <span className="lp-kicker">Edital verticalizado</span>
+                <h2>A banca não te conta o que cai. <span className="accent">A gente mapeia.</span></h2>
+                <ul>
+                  <li><span className="hex" /> Recorrência histórica de 3–5 anos por banca</li>
+                  <li><span className="hex" /> Diferença entre o que você já estudou e o que falta</li>
+                  <li><span className="hex" /> Metas prontas, priorizadas — o mentor só ajusta e publica</li>
+                </ul>
+                <Link href="/entrar" className="btn btn-ember">Ver o edital verticalizado →</Link>
+              </div>
+              <div className="lp-edital-table">
+                <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.62rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "#6d7480", padding: "14px 0 4px" }}>
+                  PC-SP · Escrivão — Vunesp · últimos 5 anos
+                </div>
+                {[
+                  { t: "Crimes contra a Administração Pública", d: "Direito Penal", r: "9 de 10 provas", p: 90 },
+                  { t: "Proposições compostas", d: "Raciocínio Lógico", r: "9 de 10 provas", p: 90 },
+                  { t: "Interpretação de texto", d: "Português", r: "10 de 10 provas", p: 100 },
+                  { t: "Falsidade ideológica e documental", d: "Direito Penal", r: "8 de 10 provas", p: 80 },
+                  { t: "Pacto de São José da Costa Rica", d: "Direitos Humanos", r: "6 de 10 provas", p: 60 },
+                ].map((e) => (
+                  <div key={e.t} className="e-row">
+                    <div className="en">
+                      {e.t}
+                      <small>{e.d}</small>
+                      <div className="bar"><span style={{ width: `${e.p}%` }} /></div>
+                    </div>
+                    <span className="rec">{e.r}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ======================= MENTOR ======================= */}
+      <section className="lp-sec" id="mentor" style={{ paddingTop: 40 }}>
+        <div className="container-lp lp-mentor">
+          <Reveal>
+            <div className="foto">
+              <img src="/img/mentor.jpeg" alt="Mentor Forja" loading="lazy" />
+            </div>
+          </Reveal>
+          <Reveal delay={120}>
+            <div>
+              <span className="lp-kicker">Quem treina com você</span>
+              <h2>Um mentor. Um método. <span className="accent">Nenhum atalho.</span></h2>
+              <p className="lp-lead">
+                Servidor público dedicado a bancas de concursos policiais. Produz o próprio
+                material, elabora as próprias questões e constrói, para cada mentorado, um
+                plano verticalizado — não um curso genérico revendido.
+              </p>
+              <ul className="lp-mentor-pts">
+                <li><span className="hex" /> Conteúdo autoral, sem terceirização de método</li>
+                <li><span className="hex" /> Turmas reduzidas — acompanhamento real, não em massa</li>
+                <li><span className="hex" /> Foco absoluto em bancas policiais</li>
+              </ul>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ======================= URGÊNCIA ======================= */}
+      <section className="lp-urgency">
+        <div className="container-lp">
+          <h2>O edital sai quando quiser. A vaga é de quem está pronto.</h2>
+          <div style={{ marginTop: 34 }}>
+            <Link href="/entrar" className="btn btn-dark btn-lg" style={{ background: "#08090b" }}>
+              Quero minha vaga na mentoria
+            </Link>
+          </div>
+          <p className="mono">Turmas reduzidas · acompanhamento real · prévia em demonstração</p>
+        </div>
+      </section>
+
+      {/* ======================= FAQ ======================= */}
+      <section className="lp-sec lp-faq" id="faq">
+        <div className="container-lp" style={{ maxWidth: 860 }}>
+          <Reveal>
+            <div className="lp-sec-head">
+              <span className="lp-kicker">Dúvidas de quem está chegando</span>
+              <h2>Perguntas <span className="accent">frequentes.</span></h2>
+            </div>
+          </Reveal>
+          <div style={{ marginTop: 34 }}>
+            {[
+              ["Não tenho muito tempo disponível. Funciona?", "Funciona. A anamnese capta quantas horas por dia você tem de verdade e o plano é montado em cima disso — o sistema adapta os dias e a carga à sua disponibilidade real, não o contrário."],
+              ["Estou começando do zero.", "É exatamente para isso que a verticalização existe: o currículo começa pelos fundamentos e a priorização mostra o que a sua banca mais cobra — você estuda o que mais vale ponto desde o primeiro dia."],
+              ["Como o sistema decide o que eu estudo a cada dia?", "Uma meta por dia, definida pelo motor adaptativo: ele pondera a sequência do currículo, seus erros recentes, as dificuldades que você declarou e as horas disponíveis. Errou mais em uma matéria? Ela ganha mais peso na semana seguinte."],
+              ["O que acontece com os erros que eu cometo?", "Cada erro vira anotação no caderno de erros, com revisão agendada automaticamente (+10/+15 dias). Na semana anterior à prova, a revisão é 100% caderno de erros + questões — você revisa só o que precisa."],
+            ].map(([q, a]) => (
+              <Reveal key={q}>
+                <details>
+                  <summary>{q}</summary>
+                  <p>{a}</p>
+                </details>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ======================= FOOTER ======================= */}
+      <footer className="lp-footer">
+        <div className="container-lp">
+          <img src="/logo/logo-horizontal.jpeg" alt="Mentoria Forja" />
+          <span>© Mentoria Forja — prévia em desenvolvimento · conteúdo ilustrativo</span>
         </div>
       </footer>
     </main>
