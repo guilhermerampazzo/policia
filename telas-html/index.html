@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forja Mentoria — Aprovação em concursos policiais</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+<!--
+THESIS: a plataforma é a sala de instrução do mentor, não uma vitrine de curso — o visitante
+vê o próprio "quartel" do método (metas, caderno de erros, edital verticalizado) antes de ler
+qualquer promessa solta. Recusa o rótulo comum de "landing de curso" (carrossel de emojis,
+depoimentos genéricos, gradiente pastel).
+OWN-WORLD: preto quase-chapa + laranja brasa (da marca real), tipografia condensada tipo
+crachá/lista de chamada (Oswald) + mono de painel tático (Space Mono), hairlines finas,
+selos hexagonais herdados do símbolo FJ.
+STORY: candidato a concurso policial entende em segundos que existe um sistema de forjamento
+diário (meta única, sem dispersão) por trás do mentor; acredita porque vê o próprio painel
+funcionando; age clicando para falar com o mentor / ver o método.
+FIRST VIEWPORT: full-bleed com foto tática em duotone à direita, título de impacto + selo do
+mentor à esquerda, CTA primário abaixo do dobro imediato, nav de protótipo flutuante no topo.
+FORM: direção pinada pelo briefing (identidade Forja já existe em arquivos/) — sem sorteio de
+concept-seed, conforme regra de direção fixada pelo brief.
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the
+verdict, and DESIGN.md.
+-->
+</style>
+</head>
+<body>
+
+<nav class="proto-nav">
+  <span class="tag">PROTÓTIPO</span>
+  <a href="index.html" class="active">Landing</a>
+  <a href="dashboard-aluno.html">Dashboard Aluno</a>
+  <a href="caderno-erros.html">Caderno de Erros</a>
+  <a href="painel-mentor.html">Painel Mentor</a>
+  <a href="edital-verticalizado.html">Edital IA</a>
+  <a href="chat.html">Chat</a>
+</nav>
+<div class="proto-nav-mobile">
+  <a href="index.html" class="active">Landing</a>
+  <a href="dashboard-aluno.html">Dashboard</a>
+  <a href="caderno-erros.html">Erros</a>
+  <a href="painel-mentor.html">Mentor</a>
+  <a href="edital-verticalizado.html">Edital IA</a>
+  <a href="chat.html">Chat</a>
+</div>
+
+<!-- ======================= HERO ======================= -->
+<header class="hero">
+  <div class="hero-bg" style="background-image:url('assets/img/hero-tactical.jpg')"></div>
+  <div class="hero-scrim"></div>
+  <div class="container hero-inner">
+    <div class="hero-top">
+      <img src="assets/logo/logo-horizontal.jpeg" alt="Mentoria Forja" class="hero-logo">
+    </div>
+    <div class="hero-copy rise">
+      <span class="eyebrow">Mentoria para concursos policiais</span>
+      <h1 class="hero-title">SUA APROVAÇÃO<br>NÃO NASCE PRONTA.<br><span class="ember">ELA É FORJADA.</span></h1>
+      <p class="hero-sub">Um método, um mentor, um único painel: metas diárias, edital verticalizado
+        por banca e o seu caderno de erros trabalhando por você — dia após dia, até o dia da prova.</p>
+      <div class="hero-actions">
+        <a href="chat.html" class="btn btn-ember">Falar com o mentor</a>
+        <a href="dashboard-aluno.html" class="btn btn-ghost">Ver o painel do aluno →</a>
+      </div>
+      <div class="hero-proof">
+        <div class="proof-item"><strong>+3-5 anos</strong><span>de recorrência mapeada por banca</span></div>
+        <div class="proof-item"><strong>1 meta</strong><span>por dia — sem dispersão</span></div>
+        <div class="proof-item"><strong>100%</strong><span>identidade própria do mentor</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ======================= MENTOR ======================= -->
+<section class="section mentor-section">
+  <div class="container mentor-grid">
+    <div class="mentor-photo-wrap">
+      <img src="assets/img/mentor.jpeg" alt="Mentor Forja" class="mentor-photo">
+      <div class="mentor-badge hex">FJ</div>
+    </div>
+    <div class="mentor-copy">
+      <span class="eyebrow">Quem comanda a forja</span>
+      <h2>Um mentor. Um método. Nenhum atalho.</h2>
+      <p class="lead">Servidor público, dedicado a bancas de concursos policiais. Produz o próprio
+        material, elabora as próprias questões e constrói, para cada mentorado, um plano de estudo
+        verticalizado — não um curso genérico revendido.</p>
+      <ul class="mentor-points">
+        <li><span class="hex point-ico"></span> Conteúdo autoral, sem terceirização de método.</li>
+        <li><span class="hex point-ico"></span> Turmas reduzidas — acompanhamento real, não em massa.</li>
+        <li><span class="hex point-ico"></span> Foco absoluto em bancas de concursos policiais.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= METHOD / FEATURES ======================= -->
+<section class="section method-section">
+  <div class="container">
+    <span class="eyebrow">O sistema por trás do método</span>
+    <h2 class="section-title">Cada ferramenta existe para <span class="ember">um</span> propósito:<br>
+      te manter na meta certa, todos os dias.</h2>
+
+    <div class="feature-grid">
+      <article class="feature-card rise">
+        <span class="feature-num">01</span>
+        <h3>Meta única do dia</h3>
+        <p>Ao entrar, o aluno vê exatamente a tarefa de hoje — nada mais. Pendências de dias
+          anteriores aparecem como alerta, nunca escondidas.</p>
+      </article>
+      <article class="feature-card rise">
+        <span class="feature-num">02</span>
+        <h3>Caderno de erros</h3>
+        <p>Cada erro vira anotação, organizada por disciplina e conteúdo. O sistema agenda a
+          revisão sozinho — em 10, 15 dias, no seu ritmo.</p>
+      </article>
+      <article class="feature-card rise">
+        <span class="feature-num">03</span>
+        <h3>Edital verticalizado por IA</h3>
+        <p>O mentor converte qualquer edital em syllabus verticalizado, cruza com o que você já
+          estudou e prioriza por recorrência histórica da banca.</p>
+      </article>
+      <article class="feature-card rise">
+        <span class="feature-num">04</span>
+        <h3>Painel do mentor</h3>
+        <p>Guilherme acompanha o progresso de cada mentorado em uma central única — sem
+          depender de planilhas ou grupos soltos.</p>
+      </article>
+      <article class="feature-card rise">
+        <span class="feature-num">05</span>
+        <h3>Dúvidas direto com o mentor</h3>
+        <p>Cada mentorado envia dúvidas por tópico. O mentor responde de dentro do próprio
+          painel — sem se perder em zap.</p>
+      </article>
+      <article class="feature-card rise">
+        <span class="feature-num">06</span>
+        <h3>Relatórios em PDF</h3>
+        <p>Tudo o que é estruturado na plataforma pode virar relatório — para o aluno acompanhar
+          sua própria evolução.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= DISCIPLINE STRIP ======================= -->
+<section class="section discipline-section">
+  <div class="discipline-bg" style="background-image:url('assets/img/section-academy.jpg')"></div>
+  <div class="discipline-scrim"></div>
+  <div class="container discipline-inner">
+    <span class="eyebrow" style="color:#fff;">Disciplina é o produto</span>
+    <h2 class="discipline-title">Não vendemos motivação.<br>Vendemos <span class="ember">rotina que aprova.</span></h2>
+    <p class="discipline-sub">Português, Direito Penal, Direitos Humanos, Raciocínio Lógico,
+      Legislação Especial — cada disciplina no seu lugar, cada revisão no seu dia certo.</p>
+  </div>
+</section>
+
+<!-- ======================= CTA ======================= -->
+<section class="section cta-section">
+  <div class="container cta-inner">
+    <div class="cta-logo-chip"><img src="assets/logo/logo-horizontal.jpeg" alt="Forja"></div>
+    <h2>Sua vaga está sendo disputada agora.<br>Comece a forjar a sua aprovação.</h2>
+    <a href="chat.html" class="btn btn-ember btn-lg">Quero minha vaga na mentoria</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <span>© Mentoria Forja — protótipo de interface, conteúdo ilustrativo.</span>
+    <span class="footer-nav">
+      <a href="dashboard-aluno.html">Dashboard</a>
+      <a href="painel-mentor.html">Painel Mentor</a>
+      <a href="edital-verticalizado.html">Edital IA</a>
+    </span>
+  </div>
+</footer>
+
+<style>
+.hero{
+  position:relative; min-height:100vh; display:flex; align-items:stretch;
+  overflow:hidden; background: var(--ink-0);
+}
+.hero-bg{
+  position:absolute; inset:0; background-size:cover; background-position:center;
+  filter: grayscale(1) contrast(1.15) brightness(.55);
+}
+.hero-scrim{
+  position:absolute; inset:0;
+  background:
+    linear-gradient(100deg, rgba(8,8,10,.97) 0%, rgba(8,8,10,.88) 38%, rgba(8,8,10,.35) 68%, rgba(232,93,15,.18) 100%),
+    linear-gradient(0deg, rgba(8,8,10,1) 0%, transparent 30%);
+}
+.hero-inner{ position:relative; z-index:2; display:flex; flex-direction:column; min-height:100vh; padding-top:100px; padding-bottom:64px; }
+.hero-top{ padding-top:6px; }
+.hero-logo{ height:46px; width:auto; object-fit:contain; }
+.hero-copy{ margin-top:auto; max-width:760px; }
+.hero-title{
+  font-size: clamp(2.6rem, 6vw, 5rem);
+  line-height: .98;
+  font-weight:700;
+  text-transform:uppercase;
+  margin: .5em 0 .45em;
+}
+.ember{ color: var(--ember-500); }
+.hero-sub{ font-size:1.1rem; color: var(--steel-300); max-width:560px; line-height:1.55; margin-bottom:2em; }
+.hero-actions{ display:flex; gap:16px; flex-wrap:wrap; margin-bottom:3em; }
+.btn-lg{ padding:1.1em 2.2em; font-size:1.05rem; }
+.hero-proof{ display:flex; gap:2.6em; flex-wrap:wrap; border-top:1px solid var(--ink-line); padding-top:1.6em; }
+.proof-item{ display:flex; flex-direction:column; gap:.2em; }
+.proof-item strong{ font-family:var(--font-display); font-size:1.5rem; color:#fff; }
+.proof-item span{ font-size:.78rem; color:var(--steel-500); text-transform:uppercase; letter-spacing:.04em; }
+
+.section{ padding: 108px 0; }
+.mentor-section{ background: var(--ink-1); }
+.mentor-grid{ display:grid; grid-template-columns: 340px 1fr; gap:72px; align-items:center; }
+.mentor-photo-wrap{ position:relative; }
+.mentor-photo{ border-radius:8px; width:100%; aspect-ratio: 4/5; object-fit:cover; box-shadow:0 30px 70px -20px rgba(0,0,0,.7); }
+.mentor-badge{
+  position:absolute; bottom:-22px; right:-22px;
+  width:88px; height:88px;
+  background: linear-gradient(160deg, var(--ember-500), var(--ember-700));
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-display); font-weight:700; font-size:1.4rem; color:#fff;
+  box-shadow: 0 14px 30px -8px rgba(232,93,15,.7);
+}
+.mentor-copy h2{ font-size:2.4rem; margin: .3em 0 .5em; text-transform:uppercase; }
+.mentor-copy .lead{ color:var(--steel-300); font-size:1.05rem; line-height:1.6; margin-bottom:1.6em; max-width:560px; }
+.mentor-points{ display:flex; flex-direction:column; gap:.9em; }
+.mentor-points li{ display:flex; align-items:center; gap:.9em; color:#e7e7ea; font-size:.98rem; }
+.point-ico{ width:10px; height:10px; background:var(--ember-500); flex-shrink:0; }
+
+.method-section{ background: var(--ink-0); }
+.section-title{ font-size:2.2rem; text-transform:uppercase; margin:.4em 0 1.4em; max-width:820px; line-height:1.15; }
+.feature-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--ink-line); border:1px solid var(--ink-line); }
+.feature-card{ background:var(--ink-1); padding:2.2em 2em; min-height:220px; }
+.feature-card:nth-child(1){animation-delay:0ms;} .feature-card:nth-child(2){animation-delay:60ms;}
+.feature-card:nth-child(3){animation-delay:120ms;} .feature-card:nth-child(4){animation-delay:180ms;}
+.feature-card:nth-child(5){animation-delay:240ms;} .feature-card:nth-child(6){animation-delay:300ms;}
+.feature-num{ font-family:var(--font-mono); color:var(--ember-500); font-size:.85rem; }
+.feature-card h3{ font-size:1.25rem; margin:.5em 0 .5em; text-transform:uppercase; }
+.feature-card p{ color:var(--steel-300); font-size:.92rem; line-height:1.55; }
+
+.discipline-section{ position:relative; padding:140px 0; overflow:hidden; }
+.discipline-bg{ position:absolute; inset:0; background-size:cover; background-position:center 30%; filter:grayscale(1) brightness(.4); }
+.discipline-scrim{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(8,8,10,.92), rgba(8,8,10,.75) 50%, rgba(8,8,10,.95)); }
+.discipline-inner{ position:relative; z-index:2; text-align:center; max-width:760px; margin:0 auto; }
+.discipline-title{ font-size:clamp(2rem,4.4vw,3.4rem); text-transform:uppercase; margin:.4em 0 .5em; line-height:1.1; }
+.discipline-sub{ color:var(--steel-300); font-size:1.05rem; }
+
+.cta-section{ background: linear-gradient(160deg, var(--ember-700), var(--ember-900)); text-align:center; padding:110px 0; }
+.cta-logo-chip{ display:inline-block; background:var(--ink-0); padding:12px 22px; border-radius:8px; margin-bottom:2em; }
+.cta-logo-chip img{ height:28px; }
+.cta-inner h2{ font-size:clamp(1.8rem,3.6vw,2.6rem); text-transform:uppercase; color:#fff; margin-bottom:1em; line-height:1.2; }
+
+.footer{ background:var(--ink-0); border-top:1px solid var(--ink-line); padding:26px 0; }
+.footer-inner{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1em; font-size:.8rem; color:var(--steel-500); }
+.footer-nav{ display:flex; gap:1.6em; }
+.footer-nav a:hover{ color:var(--ember-400); }
+
+@media (max-width: 900px){
+  .mentor-grid{ grid-template-columns:1fr; gap:40px; }
+  .feature-grid{ grid-template-columns:1fr; }
+  .hero-inner{ padding-top:90px; }
+}
+</style>
+</body>
+</html>

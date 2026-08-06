@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel do Mentor — Forja Mentoria</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="op-shell">
+
+<nav class="proto-nav">
+  <span class="tag">PROTÓTIPO</span>
+  <a href="index.html">Landing</a>
+  <a href="dashboard-aluno.html">Dashboard Aluno</a>
+  <a href="caderno-erros.html">Caderno de Erros</a>
+  <a href="painel-mentor.html" class="active">Painel Mentor</a>
+  <a href="edital-verticalizado.html">Edital IA</a>
+  <a href="chat.html">Chat</a>
+</nav>
+<div class="proto-nav-mobile">
+  <a href="index.html">Landing</a>
+  <a href="dashboard-aluno.html">Dashboard</a>
+  <a href="caderno-erros.html">Erros</a>
+  <a href="painel-mentor.html" class="active">Mentor</a>
+  <a href="edital-verticalizado.html">Edital IA</a>
+  <a href="chat.html">Chat</a>
+</div>
+
+<div class="op-topbar">
+  <img src="assets/logo/logo-horizontal.jpeg" alt="Forja" style="height:30px;">
+  <div style="display:flex; align-items:center; gap:14px;">
+    <span class="tag tag-ember">MODO MENTOR</span>
+    <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(160deg,var(--ember-600),var(--ember-900));display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;">G</div>
+  </div>
+</div>
+
+<div class="op-body">
+  <aside class="op-side">
+    <div class="side-label">Mentor · Guilherme</div>
+    <a href="#" class="active">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      Visão geral
+    </a>
+    <a href="#">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 5 18.5V20"/><circle cx="9.5" cy="7.5" r="3.5"/><path d="M19 20v-1.5a3.5 3.5 0 0 0-2.5-3.35"/><path d="M14 4.15a3.5 3.5 0 0 1 0 6.7"/></svg>
+      Meus alunos
+    </a>
+    <a href="edital-verticalizado.html">
+      <svg class="icon" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2.5c.5 3.6 1.3 5.9 3 7.6 1.7 1.7 4 2.5 7.5 3-3.5.5-5.8 1.3-7.5 3-1.7 1.7-2.5 4-3 7.4-.5-3.5-1.3-5.7-3-7.4-1.7-1.7-4-2.5-7.5-3 3.5-.5 5.8-1.3 7.5-3 1.7-1.7 2.5-4 3-7.6Z"/></svg>
+      Edital verticalizado (IA)
+    </a>
+    <a href="chat.html">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z"/></svg>
+      Dúvidas dos alunos
+    </a>
+    <a href="#">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3.5h7l4 4V20a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4.5a1 1 0 0 1 1-1Z"/><path d="M14 3.5V8h4"/><line x1="8.5" y1="12.5" x2="15.5" y2="12.5"/><line x1="8.5" y1="16" x2="13.5" y2="16"/></svg>
+      Relatórios
+    </a>
+  </aside>
+
+  <main class="op-main">
+    <span class="eyebrow" style="color:var(--ember-500);">Central do mentor</span>
+    <h1 style="font-size:2rem; text-transform:uppercase; margin:.3em 0 1.3em;">Visão geral dos mentorados</h1>
+
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:32px;">
+      <div class="card"><span class="eyebrow">Ativos</span><div style="font-family:var(--font-display); font-size:2.4rem; margin-top:.25em;">8<span style="font-size:1rem; color:var(--steel-500);">/10</span></div></div>
+      <div class="card"><span class="eyebrow">Metas cumpridas hoje</span><div style="font-family:var(--font-display); font-size:2.4rem; margin-top:.25em;">5<span style="font-size:1rem; color:var(--steel-500);">/8</span></div></div>
+      <div class="card"><span class="eyebrow">Dúvidas em aberto</span><div style="font-family:var(--font-display); font-size:2.4rem; margin-top:.25em; color:var(--ember-400);">4</div></div>
+      <div class="card"><span class="eyebrow">Editais em elaboração</span><div style="font-family:var(--font-display); font-size:2.4rem; margin-top:.25em;">2</div></div>
+    </div>
+
+    <div class="card scroll-x" style="padding:0;">
+      <table style="width:100%; min-width:760px; border-collapse:collapse; font-size:.9rem;">
+        <thead>
+          <tr style="background:var(--ink-3); color:#fff; text-align:left;">
+            <th style="padding:16px 20px; font-weight:600; font-size:.78rem; text-transform:uppercase; letter-spacing:.04em; color:var(--steel-300);">Aluno</th>
+            <th style="padding:16px 20px; font-weight:600; font-size:.78rem; text-transform:uppercase; letter-spacing:.04em; color:var(--steel-300);">Concurso alvo</th>
+            <th style="padding:16px 20px; font-weight:600; font-size:.78rem; text-transform:uppercase; letter-spacing:.04em; color:var(--steel-300);">Progresso do edital</th>
+            <th style="padding:16px 20px; font-weight:600; font-size:.78rem; text-transform:uppercase; letter-spacing:.04em; color:var(--steel-300);">Meta de hoje</th>
+            <th style="padding:16px 20px; font-weight:600; font-size:.78rem; text-transform:uppercase; letter-spacing:.04em; color:var(--steel-300);">Caderno de erros</th>
+            <th style="padding:16px 20px;"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-top:1px solid var(--ink-line);">
+            <td style="padding:16px 20px; font-weight:600;">Rafael M.</td>
+            <td style="padding:16px 20px; color:var(--steel-500);">PC-SP · Escrivão</td>
+            <td style="padding:16px 20px;"><div class="progress" style="width:110px;"><span style="width:42%"></span></div></td>
+            <td style="padding:16px 20px;"><span class="tag tag-ember">em curso</span></td>
+            <td style="padding:16px 20px; color:var(--steel-300);">14 pendentes</td>
+            <td style="padding:16px 20px;"><a href="dashboard-aluno.html" class="btn-op btn-op-line" style="padding:.5em 1em; font-size:.8rem;">Ver perfil</a></td>
+          </tr>
+          <tr style="border-top:1px solid var(--ink-line); background:rgba(255,255,255,.02);">
+            <td style="padding:16px 20px; font-weight:600;">Eduardo A.</td>
+            <td style="padding:16px 20px; color:var(--steel-500);">PRF · Agente</td>
+            <td style="padding:16px 20px;"><div class="progress" style="width:110px;"><span style="width:71%"></span></div></td>
+            <td style="padding:16px 20px;"><span class="tag tag-ok">concluída</span></td>
+            <td style="padding:16px 20px; color:var(--steel-300);">6 pendentes</td>
+            <td style="padding:16px 20px;"><a href="#" class="btn-op btn-op-line" style="padding:.5em 1em; font-size:.8rem;">Ver perfil</a></td>
+          </tr>
+          <tr style="border-top:1px solid var(--ink-line);">
+            <td style="padding:16px 20px; font-weight:600;">André S.</td>
+            <td style="padding:16px 20px; color:var(--steel-500);">PM-MG · Soldado</td>
+            <td style="padding:16px 20px;"><div class="progress" style="width:110px;"><span style="width:24%"></span></div></td>
+            <td style="padding:16px 20px;"><span class="tag tag-danger">atrasada</span></td>
+            <td style="padding:16px 20px; color:var(--steel-300);">22 pendentes</td>
+            <td style="padding:16px 20px;"><a href="#" class="btn-op btn-op-line" style="padding:.5em 1em; font-size:.8rem;">Ver perfil</a></td>
+          </tr>
+          <tr style="border-top:1px solid var(--ink-line); background:rgba(255,255,255,.02);">
+            <td style="padding:16px 20px; font-weight:600;">Maria T.</td>
+            <td style="padding:16px 20px; color:var(--steel-500);">PF · Agente</td>
+            <td style="padding:16px 20px;"><div class="progress" style="width:110px;"><span style="width:58%"></span></div></td>
+            <td style="padding:16px 20px;"><span class="tag tag-ember">em curso</span></td>
+            <td style="padding:16px 20px; color:var(--steel-300);">9 pendentes</td>
+            <td style="padding:16px 20px;"><a href="#" class="btn-op btn-op-line" style="padding:.5em 1em; font-size:.8rem;">Ver perfil</a></td>
+          </tr>
+          <tr style="border-top:1px solid var(--ink-line);">
+            <td style="padding:16px 20px; font-weight:600;">João P.</td>
+            <td style="padding:16px 20px; color:var(--steel-500);">PC-SP · Investigador</td>
+            <td style="padding:16px 20px;"><div class="progress" style="width:110px;"><span style="width:87%"></span></div></td>
+            <td style="padding:16px 20px;"><span class="tag tag-ok">concluída</span></td>
+            <td style="padding:16px 20px; color:var(--steel-300);">3 pendentes</td>
+            <td style="padding:16px 20px;"><a href="#" class="btn-op btn-op-line" style="padding:.5em 1em; font-size:.8rem;">Ver perfil</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>
