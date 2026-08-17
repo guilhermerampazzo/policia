@@ -155,9 +155,9 @@ export default async function AlunoDashboard({
       previewErro("erro-3", topicoHumanos, addDays(hoje, 5)),
     ],
   };
-  const data: DashboardData = preview
-    ? previewData
-    : (await Promise.all([
+  const [anamnese, metas, xpEStreak, pomodoro, erros] = preview
+    ? [previewData.anamnese, previewData.metas, previewData.xpEStreak, previewData.pomodoro, previewData.erros]
+    : await Promise.all([
         prisma.anamnese.findUnique({ where: { userId: user.id } }),
         prisma.meta.findMany({
           where: { userId: user.id },
@@ -172,8 +172,7 @@ export default async function AlunoDashboard({
           orderBy: { revisaoEm: "asc" },
           take: 8,
         }),
-      ]) as unknown as DashboardData);
-  const { anamnese, metas, xpEStreak, pomodoro, erros } = data;
+      ]);
 
   const minutosHoje = pomodoro.reduce((acc, p) => acc + p.minutos, 0);
   const metaDoDia =

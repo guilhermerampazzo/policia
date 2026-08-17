@@ -4,11 +4,22 @@
 
 ## World
 
-**Forja v2** — single world across landing and app: **"campo de treino sob cronômetro"**.
-Near-black training ground (`#08090b`), chalk-white type, ember (`#f37e1f`) as the
-"active effort" accent, hairline rules as track lines, Space Mono as chronometer/HUD
-readouts. The landing is a Persuade surface (conversion copy, pain → method → proof →
-urgency); the app is an Operate surface (scanable, dense, same tokens).
+**Forja** now has two intentional surface worlds sharing the same brand assets:
+
+- **Landing (Persuade):** mantém a direção existente de fotografia full-screen + gradientes,
+  descrita em `src/app/page.tsx` e `src/app/landing.css`.
+- **Painéis autenticados (Operate):** **"sala de comando cinematográfica"** — catálogo de
+  treino sob luz baixa, com hero contextual, rails horizontais de conteúdo, cards arredondados
+  com capas fotográficas, overlays para legibilidade e brasa como estado de ação.
+
+A referência de catálogo audiovisual é estrutural, não uma cópia de Netflix: o produto continua
+sendo uma mentoria policial, e cada tela privilegia a tarefa, o próximo estudo, a pendência ou
+a decisão do mentor.
+
+Cena dos painéis: aluno e mentor usando a Forja à noite, em uma sala escura iluminada por
+brasa e imagens de treino. Fundo quase-preto (`#08090d`), painéis azul-grafite, branco quente,
+linhas sutis e gradientes de fotografia. O app usa cantos 16–22px e profundidade por sombra
+suave; a landing preserva os tokens e composição próprios dela.
 
 ## Type
 
@@ -27,10 +38,15 @@ Defined in `src/app/globals.css` `:root` (app) — landing reuses them (`src/app
 
 ## Components (Operate shell)
 
-- `.shell/.topbar/.sidebar/.main` — app layout; sidebar collapses to horizontal nav <900px.
+- `.shell/.topbar/.sidebar/.main` — app layout cinematográfico; topbar com identidade,
+  perfil e estado ativo; sidebar com mini-hero fotográfico, navegação ativa e faixa horizontal
+  responsiva abaixo de 900px.
+- `.page-context-bar` — trilha curta de contexto por papel e página.
 - `.card/.card-ember/.card-hover`, `.tag` (ok/warn/danger/ember), `.btn/.btn-op`,
-  `.progress`, `.avatar`, `.hex` (FJ shield motif), `.table`, `.input/.select/.textarea`,
-  `.chip-opt`, `.stat-num`.
+  `.progress`, `.avatar`, `.hex`, `.table`, `.input/.select/.textarea`, `.chip-opt`,
+  `.stat-num` — primitives compartilhadas, com raios, contraste, estados e superfícies do app.
+- Rails `nf-*` no painel do aluno: hero da meta, trilhas horizontais, capas fotográficas,
+  overlays, revisão agendada, semana e foco.
 - Charts via Recharts; mind-map image rendered server-side (`src/lib/mindmapImage.ts`,
   resvg + Inter) in "caderno" style (paper beige bg, pink boxes, maroon titles, sticker
   edge, arrows) with download; interactive React Flow version optional.

@@ -13,6 +13,7 @@ export default async function OnboardingPage() {
 
   return (
     <div
+      className="onboarding-screen"
       style={{
         minHeight: "100vh",
         background: "radial-gradient(900px 500px at 15% -10%, rgba(243,126,31,.13), transparent 55%), #08090b",
