@@ -1125,7 +1125,7 @@ input, textarea, select { font-family: inherit; }
 .mentor-carousel-arrow:disabled { cursor: default; opacity: .2; }
 .mentor-carousel-arrow-prev { left: 7px; }
 .mentor-carousel-arrow-next { right: 7px; }
-.mentor-carousel-arrow-next svg { transform: rotate(180deg); }
+.mentor-carousel-arrow-prev svg { transform: rotate(180deg); }
 
 .mentor-tool-card {
   position: relative;
