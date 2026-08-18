@@ -27,6 +27,24 @@ const NAV_ADMIN = [
   { href: "/admin/redacoes", icon: "pen", label: "Redações" },
 ];
 
+const SURFACE_ART: Record<string, { image: string; kicker: string; mood: string }> = {
+  "/admin/alunos": { image: "/img/police-training.jpg", kicker: "ACOMPANHAMENTO DA TROPA", mood: "Cada aluno, uma rota de aprovação." },
+  "/admin/planejamento": { image: "/img/police-operations.jpg", kicker: "MOTOR ADAPTATIVO", mood: "O próximo bloco nasce dos erros de ontem." },
+  "/admin/edital": { image: "/img/police-command.jpg", kicker: "INTELIGÊNCIA DE EDITAL", mood: "Do documento bruto à linha de chegada." },
+  "/admin/mapas": { image: "/img/police-recruits.jpg", kicker: "ARSENAL VISUAL", mood: "Estruture o conteúdo que fica." },
+  "/admin/simulacoes": { image: "/img/hero-tactical.jpg", kicker: "SALA DE SIMULAÇÃO", mood: "Mostre o método em movimento." },
+  "/admin/chat": { image: "/img/mentor.jpeg", kicker: "CANAL DIRETO", mood: "Toda dúvida merece uma resposta precisa." },
+  "/admin/redacoes": { image: "/img/police-recruits.jpg", kicker: "BANCA DE REDAÇÕES", mood: "A correção que transforma texto em ponto." },
+  "/aluno/caderno": { image: "/img/hero-tactical.jpg", kicker: "MEMÓRIA DE LONGO PRAZO", mood: "O erro de hoje vira acerto automático." },
+  "/aluno/chat": { image: "/img/mentor.jpeg", kicker: "CANAL COM O MENTOR", mood: "Pergunte. Ajuste. Continue." },
+  "/aluno/forum": { image: "/img/police-recruits.jpg", kicker: "COMUNIDADE FORJA", mood: "Preparação também é troca." },
+  "/aluno/mapas": { image: "/img/police-training.jpg", kicker: "BIBLIOTECA VISUAL", mood: "Veja a matéria antes de dominá-la." },
+  "/aluno/perfil": { image: "/img/mentor.jpeg", kicker: "SEU PERFIL DE MISSÃO", mood: "Um plano bom começa com uma leitura honesta." },
+  "/aluno/redacoes": { image: "/img/police-command.jpg", kicker: "PRODUÇÃO ESCRITA", mood: "Cada linha aproxima a aprovação." },
+  "/aluno/relatorio": { image: "/img/police-command.jpg", kicker: "LEITURA DE DESEMPENHO", mood: "A curva do estudo não mente." },
+  "/aluno/simulado": { image: "/img/hero-tactical.jpg", kicker: "CAMPO DE PROVA", mood: "Treine sob pressão antes do dia decisivo." },
+};
+
 export default function AppShell({
   user,
   active,
@@ -109,6 +127,17 @@ export default function AppShell({
             <span className="page-context-line" />
             <strong>{activeItem?.label ?? "Forja"}</strong>
           </div>
+          {SURFACE_ART[active] && (
+            <section className="surface-banner" style={{ backgroundImage: `url('${SURFACE_ART[active].image}')` }}>
+              <div className="surface-banner-overlay" />
+              <div className="surface-banner-copy">
+                <span>{SURFACE_ART[active].kicker}</span>
+                <strong>{activeItem?.label}</strong>
+                <small>{SURFACE_ART[active].mood}</small>
+              </div>
+              <Link href={isAdmin ? "/admin" : "/aluno"} className="surface-banner-link">Voltar ao painel <b>↗</b></Link>
+            </section>
+          )}
           {children}
         </main>
       </div>

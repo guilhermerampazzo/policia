@@ -3,6 +3,8 @@ import { prisma } from "@/lib/db";
 import { requireAdmin } from "@/lib/auth";
 import AppShell from "@/components/AppShell";
 import SimPanel from "@/components/SimPanel";
+import MentorToolRail from "@/components/MentorToolRail";
+import { Icon } from "@/components/icons";
 import { startOfDay } from "@/lib/dates";
 import { computeXp } from "@/lib/points";
 
@@ -42,14 +44,48 @@ export default async function AdminOverview() {
     { l: "Redações para corrigir", v: String(redacoesPendentes) },
   ];
 
+  const ferramentas = [
+    { href: "/admin/alunos", label: "Minha tropa", detail: `${alunos.length} aluno${alunos.length === 1 ? "" : "s"} em acompanhamento`, image: "/img/police-training.jpg", icon: "users" },
+    { href: "/admin/planejamento", label: "Plano adaptativo", detail: "Pesos, erros e próxima semana", image: "/img/police-operations.jpg", icon: "calendar" },
+    { href: "/admin/edital", label: "Edital verticalizado", detail: "Transforme o edital em rota", image: "/img/police-command.jpg", icon: "doc" },
+    { href: "/admin/mapas", label: "Mapas mentais", detail: "Conteúdo visual para fixar", image: "/img/police-recruits.jpg", icon: "map" },
+    { href: "/admin/simulacoes", label: "Sala de simulação", detail: "Demonstre a evolução", image: "/img/hero-tactical.jpg", icon: "flask" },
+    { href: "/admin/redacoes", label: "Banca de redações", detail: `${redacoesPendentes} para corrigir agora`, image: "/img/police-recruits.jpg", icon: "pen" },
+  ];
+
   return (
     <AppShell user={user} active="/admin">
-      <span className="eyebrow">Central do mentor</span>
-      <h1 style={{ fontSize: "2.1rem", margin: "0.25em 0 1em" }}>Visão geral</h1>
+      <section className="mentor-hero" style={{ backgroundImage: "url('/img/hero-tactical.jpg')" }}>
+        <div className="mentor-hero-overlay" />
+        <div className="mentor-hero-content">
+          <span className="mentor-hero-kicker">FORJA · CENTRAL DE COMANDO</span>
+          <h1>Comande a preparação.<br /><em>Antecipe a aprovação.</em></h1>
+          <p>Leia o ritmo da sua tropa, corrija a rota e transforme cada pendência em uma próxima ação.</p>
+          <div className="mentor-hero-actions">
+            <Link href="/admin/alunos" className="btn btn-ember"><Icon name="users" size={16} /> Ver meus alunos</Link>
+            <Link href="/admin/planejamento" className="btn mentor-btn-ghost"><Icon name="calendar" size={16} /> Abrir planejamento</Link>
+          </div>
+          <div className="mentor-hero-proof">
+            <span><b>{alunos.length}</b> aluno{alunos.length === 1 ? " ativo" : "s ativos"}</span>
+            <span><b>{metasHoje}</b> meta{metasHoje === 1 ? " pendente" : "s pendentes"} hoje</span>
+            <span><b>{erros.length}</b> erro{erros.length === 1 ? " para revisar" : "s para revisar"}</span>
+          </div>
+        </div>
+      </section>
 
+      <section className="mentor-catalog-section">
+        <div className="mentor-catalog-heading">
+          <div><span className="eyebrow">Seu catálogo de trabalho</span><h2>Arsenal do mentor</h2></div>
+          <span className="mentor-catalog-hint">use as setas para explorar <b>→</b></span>
+        </div>
+        <MentorToolRail tools={ferramentas} />
+      </section>
+
+      <div className="mentor-section-divider" />
+      <div className="mentor-section-title"><div><span className="eyebrow">Leitura rápida da operação</span><h2>Hoje na Forja</h2></div><span>atualizado agora</span></div>
       <div className="grid-kpis" style={{ marginBottom: 22 }}>
         {kpis.map((k) => (
-          <div key={k.l} className="card" style={{ padding: 18 }}>
+          <div key={k.l} className="card mentor-kpi-card" style={{ padding: 18 }}>
             <span className="eyebrow">{k.l}</span>
             <div className="stat-num" style={{ marginTop: 8 }}>{k.v}</div>
           </div>

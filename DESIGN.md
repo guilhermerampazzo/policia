@@ -47,6 +47,12 @@ Defined in `src/app/globals.css` `:root` (app) — landing reuses them (`src/app
   `.stat-num` — primitives compartilhadas, com raios, contraste, estados e superfícies do app.
 - Rails `nf-*` no painel do aluno: hero da meta, trilhas horizontais, capas fotográficas,
   overlays, revisão agendada, semana e foco.
+- `.mentor-hero`, `.mentor-tool-rail`, `.mentor-tool-card` — home do mentor em formato catálogo:
+  hero de central de comando, CTAs de ação, seis capas de ferramentas, índices, ícones e
+  micro-CTA de abertura; o rail é um carrossel com setas, snap e rolagem suave, sem scrollbar
+  nativa visível; os KPIs descem para a faixa "Hoje na Forja".
+- `.surface-banner` — capa contextual compartilhada nas rotas secundárias de mentor e aluno,
+  com imagem policial local, título, mood da seção e retorno ao painel.
 - Charts via Recharts; mind-map image rendered server-side (`src/lib/mindmapImage.ts`,
   resvg + Inter) in "caderno" style (paper beige bg, pink boxes, maroon titles, sticker
   edge, arrows) with download; interactive React Flow version optional.
@@ -73,5 +79,7 @@ Contract in `src/app/page.tsx` (THESIS/OWN-WORLD/STORY/FIRST VIEWPORT/FORM; seed
 
 ## Imagery
 
-`public/img/` — real Unsplash stock (tactical, training, study, desk) + real mentor
-portrait + app screenshots. Placeholders to be swapped for the mentor's own photography.
+`public/img/` — hero tático policial, capas locais de treinamento, recrutas, comando e
+operações (fontes listadas em `public/img/POLICE-IMAGE-SOURCES.md`) + retrato do mentor e
+assets de conteúdo. Os rails autenticados priorizam imagens policiais; a landing preserva
+seus próprios assets e composição.

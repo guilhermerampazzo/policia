@@ -14,11 +14,11 @@ export const dynamic = "force-dynamic";
 
 const CAPAS: Record<string, string> = {
   "direito-penal": "/img/hero-tactical.jpg",
-  portugues: "/img/estudo.jpg",
-  "raciocinio-logico": "/img/track.jpg",
-  "direitos-humanos": "/img/mentor.jpeg",
-  "legislacao-especial": "/img/treino.jpg",
-  "direito-consumidor": "/img/plano.jpg",
+  portugues: "/img/police-recruits.jpg",
+  "raciocinio-logico": "/img/police-command.jpg",
+  "direitos-humanos": "/img/police-training.jpg",
+  "legislacao-especial": "/img/police-operations.jpg",
+  "direito-consumidor": "/img/police-recruits.jpg",
 };
 
 function capaDaDisciplina(slug: string) {
