@@ -111,6 +111,9 @@ export default function ErrorStrategicActions({
             <div><strong>Armadilhas da banca</strong><ul>{content.armadilhas.map((item) => <li key={item}>{item}</li>)}</ul></div>
           </div>
           <div className="strategic-plan"><strong>Plano de revisão</strong><span>{content.planoRevisao}</span></div>
+          <a className="btn btn-sm btn-line" href={`/api/erro/${erroId}/conteudo/pdf`} download>
+            <Icon name="file" size={14} /> Baixar PDF estratégico
+          </a>
           <span className="tag tag-ember">{content.origem === "ia" ? "gerado com IA" : "roteiro base Forja"}</span>
         </div>
       )}
