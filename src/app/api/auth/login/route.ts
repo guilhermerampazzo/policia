@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/db";
-import { getSession } from "@/lib/session";
+import { getSession, isAcessoExpirado } from "@/lib/session";
 import { verificarSenha } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
@@ -22,6 +22,12 @@ export async function POST(req: Request) {
   const user = await prisma.user.findUnique({ where: { email: email.toLowerCase() } });
   if (!user || !(await verificarSenha(password, user.passwordHash))) {
     return NextResponse.json({ error: "E-mail ou senha incorretos." }, { status: 401 });
+  }
+  if (isAcessoExpirado(user)) {
+    return NextResponse.json(
+      { error: "Seu acesso expirou. Procure a mentoria para renovar.", code: "ACCESS_EXPIRED", acessoAte: user.acessoAte },
+      { status: 403 }
+    );
   }
 
   const session = await getSession();

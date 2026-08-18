@@ -9,6 +9,9 @@ import Pomodoro from "@/components/Pomodoro";
 import { Icon } from "@/components/icons";
 import { addDays, startOfDay, startOfWeek, DIAS_SEMANA_ABREV, fmtData } from "@/lib/dates";
 import { computeXpEStreak, levelFromXp, nomeNivel } from "@/lib/points";
+import { progressoEdital } from "@/lib/agregacoes";
+import ForjaPillars from "@/components/ForjaPillars";
+import RailArrows from "@/components/RailArrows";
 
 export const dynamic = "force-dynamic";
 
@@ -22,7 +25,7 @@ const CAPAS: Record<string, string> = {
 };
 
 function capaDaDisciplina(slug: string) {
-  return CAPAS[slug] ?? "/img/treino.jpg";
+  return CAPAS[slug] ?? "/img/police-training.jpg";
 }
 
 type DashboardTopic = {
@@ -145,6 +148,17 @@ export default async function AlunoDashboard({
       previewMeta("meta-done", topicoPortugues, addDays(hoje, -2), "CONCLUIDA", "PLANEJADA"),
     ],
     xpEStreak: { xp: 1280, streak: 6 },
+    progresso: {
+      totalTopicos: 24,
+      topicosConcluidos: 9,
+      cobertura: 9 / 24,
+      porDisciplina: [
+        { disciplinaId: penal.id, nome: penal.nome, cor: penal.cor, totalTopicos: 6, topicosConcluidos: 3, cobertura: .5 },
+        { disciplinaId: portugues.id, nome: portugues.nome, cor: portugues.cor, totalTopicos: 6, topicosConcluidos: 2, cobertura: .33 },
+        { disciplinaId: logica.id, nome: logica.nome, cor: logica.cor, totalTopicos: 6, topicosConcluidos: 2, cobertura: .33 },
+        { disciplinaId: direitosHumanos.id, nome: direitosHumanos.nome, cor: direitosHumanos.cor, totalTopicos: 6, topicosConcluidos: 2, cobertura: .33 },
+      ],
+    },
     pomodoro: [
       { id: "pomodoro-1", userId: user.id, inicio: addDays(hoje, 0), minutos: 45, tipo: "FOCO" },
       { id: "pomodoro-2", userId: user.id, inicio: addDays(hoje, 0), minutos: 25, tipo: "FOCO" },
@@ -155,8 +169,8 @@ export default async function AlunoDashboard({
       previewErro("erro-3", topicoHumanos, addDays(hoje, 5)),
     ],
   };
-  const [anamnese, metas, xpEStreak, pomodoro, erros] = preview
-    ? [previewData.anamnese, previewData.metas, previewData.xpEStreak, previewData.pomodoro, previewData.erros]
+  const [anamnese, metas, progresso, xpEStreak, pomodoro, erros] = preview
+    ? [previewData.anamnese, previewData.metas, previewData.progresso, previewData.xpEStreak, previewData.pomodoro, previewData.erros]
     : await Promise.all([
         prisma.anamnese.findUnique({ where: { userId: user.id } }),
         prisma.meta.findMany({
@@ -164,6 +178,7 @@ export default async function AlunoDashboard({
           include: { topico: { include: { disciplina: true } } },
           orderBy: { dia: "asc" },
         }),
+        progressoEdital(user.id),
         computeXpEStreak(user.id),
         prisma.pomodoroSessao.findMany({ where: { userId: user.id, tipo: "FOCO", inicio: { gte: hoje } } }),
         prisma.erro.findMany({
@@ -182,6 +197,7 @@ export default async function AlunoDashboard({
   const pendentes = metas.filter((m) => m.dia < hoje && m.status !== "CONCLUIDA");
   const proximaRevisao = erros[0];
   const nivel = levelFromXp(xpEStreak.xp);
+  const levelProgress = Math.round(((xpEStreak.xp - (nivel.nivel - 1) * 500) / 500) * 100);
 
   const semanaStart = startOfWeek(new Date());
   const semana = Array.from({ length: 7 }, (_, i) => {
@@ -199,7 +215,7 @@ export default async function AlunoDashboard({
       <div className="nf-dashboard">
         <section
           className="nf-hero rise"
-          style={{ backgroundImage: "url('/img/treino.jpg')" }}
+          style={{ backgroundImage: "url('/img/police-operations.jpg')" }}
           aria-label="Meta principal do dia"
         >
           <div className="nf-hero-overlay" />
@@ -275,12 +291,24 @@ export default async function AlunoDashboard({
           </div>
         </div>
 
+        <section className="student-command-grid" aria-label="Progresso e força da missão">
+          <div className="card card-ember student-edital-mini">
+            <div className="student-command-head"><div><span className="nf-section-kicker">LINHA DO EDITAL</span><h2>{Math.round(progresso.cobertura * 100)}% coberto</h2><p>{progresso.topicosConcluidos} de {progresso.totalTopicos} tópicos concluídos pelas suas metas.</p></div><strong>{progresso.topicosConcluidos}/{progresso.totalTopicos}</strong></div>
+            <div className="progress progress-lg"><span style={{ width: `${progresso.cobertura * 100}%` }} /></div>
+            <div className="student-edital-disciplines">{progresso.porDisciplina.slice(0, 4).map((item) => <span key={item.disciplinaId}><i style={{ background: item.cor }} />{item.nome}<b>{Math.round(item.cobertura * 100)}%</b></span>)}</div>
+            <Link href="/aluno/relatorio" className="btn btn-line btn-sm">Abrir relatório →</Link>
+          </div>
+          <div className="card student-xp-card"><span className="nf-section-kicker">FORÇA ACUMULADA</span><h2>{xpEStreak.xp} XP</h2><div className="student-xp-meta"><span className="tag tag-gold">NÍVEL {nivel.nivel} · {nomeNivel(xpEStreak.xp)}</span><span>{xpEStreak.streak} dias de sequência</span></div><div className="progress"><span style={{ width: `${Math.max(0, Math.min(100, levelProgress))}%` }} /></div><p>Metas, foco, questões e revisões registradas sem contar o mesmo evento duas vezes.</p><Link href="/aluno/relatorio" className="btn btn-ghost btn-sm">Ver minha evolução</Link></div>
+        </section>
+
+        <ForjaPillars />
+
         <section className="nf-section">
           <div className="nf-section-head">
             <div><span className="nf-section-kicker">SUA FILA DE TREINO</span><h2>Continue estudando</h2></div>
             <Link href="/aluno/relatorio">Ver tudo <span>→</span></Link>
           </div>
-          <div className="nf-rail">
+          <RailArrows label="sua fila de treino">
             {trilhaFallback.map((meta, index) => (
               <Link
                 key={meta.id}
@@ -301,7 +329,7 @@ export default async function AlunoDashboard({
             {trilhaFallback.length === 0 && (
               <div className="nf-empty-card">Seu mentor ainda está preparando a próxima trilha.</div>
             )}
-          </div>
+          </RailArrows>
         </section>
 
         <section className="nf-section">
@@ -309,7 +337,7 @@ export default async function AlunoDashboard({
             <div><span className="nf-section-kicker">BASEADO NO SEU DESEMPENHO</span><h2>Recomendado para revisar</h2></div>
             <Link href="/aluno/caderno">Abrir caderno <span>→</span></Link>
           </div>
-          <div className="nf-rail">
+          <RailArrows label="revisões recomendadas">
             {erros.map((erro, index) => (
               <Link
                 key={erro.id}
@@ -332,7 +360,7 @@ export default async function AlunoDashboard({
                 Nenhuma revisão pendente. Registre seus erros ao estudar.
               </Link>
             )}
-          </div>
+          </RailArrows>
         </section>
 
         <div className="nf-lower-grid">

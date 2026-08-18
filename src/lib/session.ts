@@ -25,9 +25,16 @@ export async function getSession(): Promise<IronSession<SessionData>> {
   return getIronSession<SessionData>(store, sessionOptions);
 }
 
+/** Acesso individual expirado bloqueia apenas estudantes (mentor nunca é bloqueado). */
+export function isAcessoExpirado(user: Pick<User, "role" | "acessoAte">): boolean {
+  if (user.role === "ADMIN") return false;
+  return !!user.acessoAte && new Date(user.acessoAte).getTime() <= Date.now();
+}
+
 export async function currentUser(): Promise<User | null> {
   const session = await getSession();
   if (!session.userId) return null;
   const user = await prisma.user.findUnique({ where: { id: session.userId } });
+  if (!user || isAcessoExpirado(user)) return null;
   return user;
 }

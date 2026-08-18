@@ -3,6 +3,7 @@ import { prisma } from "@/lib/db";
 import { requireAdmin } from "@/lib/auth";
 import AppShell from "@/components/AppShell";
 import { startOfDay } from "@/lib/dates";
+import AccessStatusBadge from "@/components/AccessStatusBadge";
 
 export const dynamic = "force-dynamic";
 
@@ -42,6 +43,7 @@ export default async function AdminAlunos() {
               <th>Concurso alvo</th>
               <th>Banca</th>
               <th>Progresso do edital</th>
+              <th>Acesso</th>
               <th>Meta de hoje</th>
               <th>Pendências</th>
               <th>Erros p/ revisar</th>
@@ -68,6 +70,7 @@ export default async function AdminAlunos() {
                     <span style={{ fontSize: ".76rem", color: "var(--ink-faint)" }}>{progresso}%</span>
                   </div>
                 </td>
+                <td><AccessStatusBadge acessoAte={a.acessoAte} /></td>
                 <td>
                   {metaHoje ? (
                     <span className="tag tag-ember">{metaHoje.topico.disciplina.nome}</span>

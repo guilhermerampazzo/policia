@@ -3,6 +3,7 @@ import { hash } from "bcryptjs";
 import { addDays, startOfDay, startOfWeek, weekStamp } from "../src/lib/dates";
 import { planWeek } from "../src/lib/adaptive";
 import { arvoreParaDataUri } from "../src/lib/mindmapImage";
+import { flashcardConteudo } from "../src/lib/flashcard";
 import type { ArvoreMental } from "../src/lib/ai";
 
 const prisma = new PrismaClient();
@@ -138,13 +139,14 @@ async function main() {
       email: adminEmail,
       name: "Guilherme",
       role: "ADMIN",
+      acessoAte: null,
       passwordHash: await hash(adminSenha, 10),
     },
   });
 
   const aluno = await prisma.user.upsert({
     where: { email: alunoEmail },
-    update: {},
+    update: { acessoAte: addDays(new Date(), 365) },
     create: {
       email: alunoEmail,
       name: "Rafael M.",
@@ -153,6 +155,7 @@ async function main() {
       banca: "Vunesp",
       dataProva: addDays(new Date(), 120),
       onboardingDone: true,
+      acessoAte: addDays(new Date(), 365),
       passwordHash: await hash(alunoSenha, 10),
     },
   });
@@ -206,6 +209,7 @@ async function main() {
       await prisma.questao.create({
         data: {
           disciplinaId: disc.id,
+          topicoId: topico.id,
           enunciado: q.enun,
           altA: q.alts[0] ?? "",
           altB: q.alts[1] ?? "",
@@ -218,7 +222,6 @@ async function main() {
           comentario: q.coment,
         },
       });
-      void topico;
     }
   }
 
@@ -300,6 +303,24 @@ async function main() {
         });
       }
     }
+  }
+
+  // ---------- flashcards derivados dos erros (idempotente) ----------
+  const errosComContexto = await prisma.erro.findMany({
+    where: { userId: aluno.id },
+    include: { topico: { include: { disciplina: true } } },
+  });
+  for (const erro of errosComContexto) {
+    await prisma.flashcard.upsert({
+      where: { erroId: erro.id },
+      update: {},
+      create: {
+        userId: aluno.id,
+        erroId: erro.id,
+        ...flashcardConteudo(erro),
+        proximaRevisao: erro.revisaoEm,
+      },
+    });
   }
 
   // ---------- semana atual planejada (pesos já com os erros acima) ----------

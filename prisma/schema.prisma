@@ -63,11 +63,13 @@ model User {
   banca         String?
   dataProva     DateTime?
   onboardingDone Boolean         @default(false)
+  acessoAte     DateTime?
   criadoEm      DateTime        @default(now())
 
   anamnese       Anamnese?
   metas          Meta[]
   erros          Erro[]
+  flashcards     Flashcard[]
   pomodoros      PomodoroSessao[]
   tentativas     Tentativa[]
   redacoes       Redacao[]
@@ -76,6 +78,7 @@ model User {
   mensagens      Mensagem[]
   forumTopicos   ForumTopico[]
   forumComentarios ForumComentario[]
+  conteudosEstrategicos ConteudoEstrategico[]
 }
 
 model Anamnese {
@@ -114,6 +117,8 @@ model Topico {
 
   metas Meta[]
   erros Erro[]
+  questoes Questao[]
+  pomodoros PomodoroSessao[]
 }
 
 model Meta {
@@ -138,28 +143,57 @@ model Erro {
   user       User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   topicoId   String
   topico     Topico        @relation(fields: [topicoId], references: [id], onDelete: Cascade)
+  questaoId  String?
+  questao    Questao?      @relation(fields: [questaoId], references: [id], onDelete: SetNull)
   descricao  String
   data       DateTime      @default(now())
   revisaoEm  DateTime
   status     StatusRevisao @default(PENDENTE)
   revisadoEm DateTime?
 
+  flashcard Flashcard?
+  conteudoEstrategico ConteudoEstrategico?
+
   @@index([userId, status])
+  @@index([userId, questaoId])
+}
+
+model Flashcard {
+  id             String   @id @default(cuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  erroId         String   @unique
+  erro           Erro     @relation(fields: [erroId], references: [id], onDelete: Cascade)
+  pergunta       String
+  resposta       String
+  repeticoes     Int      @default(0)
+  intervalo      Int      @default(1)
+  proximaRevisao DateTime
+  criadoEm       DateTime @default(now())
+  revisadoEm     DateTime?
+
+  @@index([userId, proximaRevisao])
 }
 
 model PomodoroSessao {
   id     String        @id @default(cuid())
   userId String
   user   User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  topicoId String?
+  topico Topico?       @relation(fields: [topicoId], references: [id], onDelete: SetNull)
   inicio DateTime      @default(now())
   minutos Int
   tipo   TipoPomodoro  @default(FOCO)
+
+  @@index([userId, topicoId])
 }
 
 model Questao {
   id            String      @id @default(cuid())
   disciplinaId  String
   disciplina    Disciplina  @relation(fields: [disciplinaId], references: [id], onDelete: Cascade)
+  topicoId      String?
+  topico        Topico?     @relation(fields: [topicoId], references: [id], onDelete: SetNull)
   enunciado     String
   altA          String
   altB          String
@@ -172,6 +206,7 @@ model Questao {
   comentario    String?
 
   tentativas Tentativa[]
+  erros      Erro[]
 }
 
 model Tentativa {
@@ -182,6 +217,25 @@ model Tentativa {
   questao   Questao  @relation(fields: [questaoId], references: [id], onDelete: Cascade)
   acerto    Boolean
   data      DateTime @default(now())
+
+  @@index([userId, questaoId])
+}
+
+model ConteudoEstrategico {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  erroId      String   @unique
+  erro        Erro     @relation(fields: [erroId], references: [id], onDelete: Cascade)
+  resumo      String
+  pontosChave String[]
+  armadilhas  String[]
+  planoRevisao String
+  origem      String   @default("fallback")
+  criadoEm    DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+
+  @@index([userId])
 }
 
 model Redacao {

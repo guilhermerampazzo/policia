@@ -28,6 +28,15 @@ const TREE_SCHEMA = z.object({
 
 export type ArvoreMental = z.infer<typeof TREE_SCHEMA>;
 
+const CONTENT_SCHEMA = z.object({
+  resumo: z.string().min(10),
+  pontosChave: z.array(z.string().min(3)).min(2).max(8),
+  armadilhas: z.array(z.string().min(3)).min(1).max(6),
+  planoRevisao: z.string().min(10),
+});
+
+export type ConteudoEstrategicoPayload = z.infer<typeof CONTENT_SCHEMA>;
+
 export class AiNaoConfiguradoError extends Error {
   constructor() {
     super("IA não configurada (chave de API ausente).");
@@ -167,4 +176,37 @@ export async function gerarResumo(args: { titulo: string; contexto: string }): P
     if (e instanceof AiNaoConfiguradoError) throw e;
     return "Resumo indisponível no momento. Sem a chave de IA configurada, o resumo automático fica desativado — o conteúdo da videoaula/PDF está disponível normalmente.";
   }
+}
+
+/**
+ * Conteúdo estratégico (resumo, pontos-chave, armadilhas, plano de revisão)
+ * gerado a partir de um erro registrado. Quando a IA não está configurada
+ * (ou falha), o chamador deve usar o fallback determinístico de lib/conteudo.ts.
+ */
+export async function gerarConteudoEstrategicoIA(args: {
+  disciplina: string;
+  topico: string;
+  descricao: string;
+}): Promise<ConteudoEstrategicoPayload> {
+  if (!aiConfigurado()) throw new AiNaoConfiguradoError();
+
+  const system =
+    "Você é um professor de concursos policiais. Dado o erro que o aluno cometeu, " +
+    "elabore conteúdo estratégico de estudo em pt-BR: um resumo objetivo do assunto, " +
+    "pontos-chave que a banca cobra, armadilhas típicas das provas e um plano de " +
+    "revisão espaçada. Devolva APENAS um JSON válido neste formato exato: " +
+    '{"resumo":"...","pontosChave":["...","..."],"armadilhas":["...","..."],"planoRevisao":"..."}. ' +
+    "Sem markdown, sem texto fora do JSON.";
+
+  const user = `Disciplina: ${args.disciplina}\nTópico: ${args.topico}\nErro registrado: ${args.descricao}`;
+
+  const raw = await completar({
+    baseUrl: process.env.DEEPSEEK_BASE_URL ?? "https://opencode.ai/zen/go/v1/",
+    apiKey: process.env.DEEPSEEK_API_KEY!,
+    model: process.env.DEEPSEEK_MODEL ?? "deepseek-v4-flash",
+    system,
+    user,
+    maxTokens: 900,
+  });
+  return CONTENT_SCHEMA.parse(JSON.parse(extrairJson(raw)));
 }

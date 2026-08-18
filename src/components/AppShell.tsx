@@ -7,6 +7,7 @@ import { fmtData } from "@/lib/dates";
 const NAV_ALUNO = [
   { href: "/aluno", icon: "home", label: "Painel do dia" },
   { href: "/aluno/caderno", icon: "book", label: "Caderno de erros" },
+  { href: "/aluno/flashcards", icon: "brain", label: "Flashcards" },
   { href: "/aluno/simulado", icon: "target", label: "Simulado" },
   { href: "/aluno/relatorio", icon: "chart", label: "Relatório" },
   { href: "/aluno/mapas", icon: "map", label: "Mapas mentais" },
@@ -36,6 +37,7 @@ const SURFACE_ART: Record<string, { image: string; kicker: string; mood: string 
   "/admin/chat": { image: "/img/mentor.jpeg", kicker: "CANAL DIRETO", mood: "Toda dúvida merece uma resposta precisa." },
   "/admin/redacoes": { image: "/img/police-recruits.jpg", kicker: "BANCA DE REDAÇÕES", mood: "A correção que transforma texto em ponto." },
   "/aluno/caderno": { image: "/img/hero-tactical.jpg", kicker: "MEMÓRIA DE LONGO PRAZO", mood: "O erro de hoje vira acerto automático." },
+  "/aluno/flashcards": { image: "/img/police-training.jpg", kicker: "REVISÃO ATIVA", mood: "Vire a resposta antes que a banca vire o jogo." },
   "/aluno/chat": { image: "/img/mentor.jpeg", kicker: "CANAL COM O MENTOR", mood: "Pergunte. Ajuste. Continue." },
   "/aluno/forum": { image: "/img/police-recruits.jpg", kicker: "COMUNIDADE FORJA", mood: "Preparação também é troca." },
   "/aluno/mapas": { image: "/img/police-training.jpg", kicker: "BIBLIOTECA VISUAL", mood: "Veja a matéria antes de dominá-la." },

@@ -21,7 +21,13 @@ export default function EntrarPage() {
         body: JSON.stringify({ email: em, password: senha }),
       });
       const json = await res.json();
-      if (!res.ok) throw new Error(json.error ?? "Falha ao entrar.");
+      if (!res.ok) {
+        if (json.code === "ACCESS_EXPIRED") {
+          router.push(`/acesso-encerrado${json.acessoAte ? `?ate=${encodeURIComponent(json.acessoAte)}` : ""}`);
+          return;
+        }
+        throw new Error(json.error ?? "Falha ao entrar.");
+      }
       router.push(json.role === "ADMIN" ? "/admin" : "/aluno");
     } catch (e) {
       setErro((e as Error).message);

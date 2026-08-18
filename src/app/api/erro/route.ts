@@ -3,6 +3,7 @@ import { z } from "zod";
 import { prisma } from "@/lib/db";
 import { currentUser } from "@/lib/session";
 import { addDays, startOfDay } from "@/lib/dates";
+import { flashcardConteudo } from "@/lib/flashcard";
 
 export const dynamic = "force-dynamic";
 
@@ -19,16 +20,34 @@ export async function POST(req: Request) {
   const parsed = schema.safeParse(body);
   if (!parsed.success) return NextResponse.json({ error: "Dados inválidos." }, { status: 400 });
 
-  const topico = await prisma.topico.findUnique({ where: { id: parsed.data.topicoId } });
+  const topico = await prisma.topico.findUnique({
+    where: { id: parsed.data.topicoId },
+    include: { disciplina: true },
+  });
   if (!topico) return NextResponse.json({ error: "Tópico não encontrado." }, { status: 404 });
 
+  const revisaoEm = addDays(startOfDay(new Date()), parsed.data.revisaoDias);
   const erro = await prisma.erro.create({
     data: {
       userId: user.id,
       topicoId: parsed.data.topicoId,
       descricao: parsed.data.descricao,
-      revisaoEm: addDays(startOfDay(new Date()), parsed.data.revisaoDias),
+      revisaoEm,
     },
   });
-  return NextResponse.json({ ok: true, erro });
+
+  const conteudo = flashcardConteudo({ ...erro, topico });
+  const flashcard = await prisma.flashcard.upsert({
+    where: { erroId: erro.id },
+    update: { pergunta: conteudo.pergunta, resposta: conteudo.resposta },
+    create: {
+      userId: user.id,
+      erroId: erro.id,
+      pergunta: conteudo.pergunta,
+      resposta: conteudo.resposta,
+      proximaRevisao: revisaoEm,
+    },
+  });
+
+  return NextResponse.json({ ok: true, erro, flashcard });
 }

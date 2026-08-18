@@ -27,6 +27,7 @@ const paths: Record<string, string> = {
   doc: '<path d="M7 3.5h7l4 4V20a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4.5a1 1 0 0 1 1-1Z"/><path d="M14 3.5V8h4"/>',
   grid: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
   refresh: '<path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/>',
+  lock: '<rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>',
   arrowRight: '<path d="M5 12h14"/><path d="M13 6l6 6-6 6"/>',
   fire: '<path d="M12 2.5c2 3.5 6 4.5 6 9a6 6 0 0 1-12 0c0-2 1-3.5 2-5 .3 1 1 1.5 2 2-.3-2 .5-4 2-6Z"/>',
 };
